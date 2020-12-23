@@ -1,0 +1,118 @@
+body {
+	background-color: #f5f5f5 ;
+	font-family: Quicksand;
+}
+
+.login-btn
+{
+	color:white;
+	width: 100%;
+}
+.login-form,.register-form,.gallery,.blog
+{
+	margin-top: 50px;
+}
+.error-msg 
+{
+	background-color: #ef5350 ;
+	color: white;
+	padding: 2px 5px 5px;
+	border-radius: 15px; 
+}
+
+.image-container img
+{
+	width: 100%;
+}
+.view-more
+{
+	margin:30px;
+}
+.pagination li.active {
+    background-color: #7e57c2!important;
+}
+/* blog page */
+.card
+{
+  box-shadow: 0px 0px 0px .5px #d4d4d4!important;
+}
+.top-blog-title,.card-blog-title
+{
+	font-size: 22px;
+	font-family: Tw Cen MT!important;	
+	margin-bottom: 5px!important;
+}
+.collection-item a
+{
+	color: black!important;
+}
+.blog-cards
+{
+	color: black!important;
+}
+.blog-cards p {
+	text-align: justify;
+}
+.blog-content
+{
+	font-size: 14px;
+}
+.blog-header
+{
+	padding: 5px;
+	margin-top: 50px;
+	font-family: Tw Cen MT!important;	
+}
+.posted-at
+{
+	font-size: 13px;
+}
+.collection-header p
+{
+	margin: 10px 0px 10px 20px!important;
+  font-size: 25px;
+  font-family: Tw Cen MT!important;	
+}
+footer {
+	margin-top: 50px;
+}
+
+/*   */
+
+.v-blog-image 
+{
+	width: 100%!important;
+}
+.v-blog-content
+{
+	background: white;
+	padding: 20px;
+	box-shadow: 0px 0px 0.5px grey;
+	text-align: justify;
+}
+.v-blog-title {
+	font-size: 25px;
+  font-family: Tw Cen MT!important;	
+}
+.v-comment-profile
+{
+	margin-top: 5px;
+}
+.v-comment-profile img
+{
+	border-radius: 50%;
+	width: 100%;
+}
+.v-comment-name
+{
+	font-size: 25px;
+  font-family: Tw Cen MT!important;	
+}
+.v-comment-card 
+{
+	padding: 10px 15px 15px 10px!important
+}
+.v-comment-form 
+{
+	margin-top: 40px;
+}
