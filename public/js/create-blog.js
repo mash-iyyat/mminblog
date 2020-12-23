@@ -13,6 +13,10 @@ $(document).ready(function() {
 			data:blogData
 		}).done(res => {
 			console.log(res);
+			$('#create-blog-modal').modal('close');
+			$('#title').val("");
+			$('#content').val("");
+			Materialize.toast("Post Created",3000);
 		}).fail(err => {
 			console.log(err);
 		})

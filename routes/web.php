@@ -23,4 +23,6 @@ Route::prefix('blog')->group(function() {
 	Route::post('/create', [BlogsController::class, 'create']);
 	Route::delete('/update/{id}', [BlogsController::class, 'update']);
 	Route::post('/delete/{id}', [BlogsController::class, 'delete']);
+	Route::get('/view={id}', [BlogsController::class, 'readBlog']);
+	Route::get('/paginate',[BlogsController::class, 'paginate']);
 });

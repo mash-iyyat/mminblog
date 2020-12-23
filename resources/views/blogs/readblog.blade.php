@@ -1,11 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="card blog-header">
-  <div class="container">
-    <h1>Blogs</h1>
-  </div>
-</div>
 <div class="row blog">
   <div class="col l4 offset-l1 hide-on-med-and-down">
 
@@ -135,45 +130,64 @@
   </div>
 
   <div class="col l6 s12 m12">
-    <h3 class="blog-header">Recent blogs</h3>
-    <div id="macy-container" class="blog-container">
-    	@foreach($blogs as $blog)
-	  		<div class="col">
-	        <a href="blog/view={{$blog->id}}" class="blog-cards">
-	          <div class="card">
-	            <div class="card-content">
-	              <p>{{$blog->user->username}}</p>
-	              <p class="posted-at">{{$blog->created_at}}</p>
-	              <p class="card-blog-title">{{$blog->title}}</p>
-	              <p class="blog-content">{{$blog->content}}</p>
-	            </div>
-	          </div>  
-	        </a>
-	      </div>
-    	@endforeach
-      
-      <!-- <div class="col">
-        <a href="viewblog.html" class="blog-cards">
-          <div class="card">
-            <div class="card-image">
-              <img src="images/005.png">
-            </div>
-            <div class="card-content">
-              <p>By The Real Emiya Page</p>
-              <p class="posted-at">Posted 7 weeks</p>
-              <p class="card-blog-title">Saan ako makakakuha?</p>
-              <p class="blog-content">Ang Lorem Ipsum ay ginagamit na modelo ng industriya ng pagpriprint at pagtytypeset.</p>
-            </div>
-          </div>  
-        </a>
-      </div>  --> 
-      <button class="btn-flat btn green white-text waves-effect" id="view-more-btn">View more</button>
+    <h4 class="blog-header">{{$blog->title}}</h4><hr>
+    <p>{{$blog->user->username}} | {{$blog->created_at}}</p>
+    <div class="v-blog-container">
+      @if($blog->image != 'no-image.jpg')
+      <img src="/storage/images/blog_images/{{$blog->image}}" class="v-blog-image">
+      @endif
+      <p class="v-blog-content">{{$blog->content}}</p>
+      <div class="chip waves-effect waves-light">
+        <a href=""><i class="fa fa-bookmark"></i></a>
+      </div>
+    </div>
+
+    <div class="v-blog-comments row">
+      <div class="v-comment-form">
+        <form id="add-comment-form">
+          <div class="input-field">
+            <label>Add Comment</label>
+            <input type="text" name="comment">
+          </div>
+        </form>
+      </div>
+      <div class="col s12">
+        <div class="col s2 v-comment-profile">
+          <img src="images/no-image.jpg">
+        </div>
+        <div class="card col s10">
+          <div class="card-content v-comment-card">
+            <p class="card-title v-comment-name">Card Title</p>
+            <p>I am a very simple card. I am good at containing small bits of information.
+            I am convenient because I require little markup to use effectively.</p>
+          </div>
+        </div>  
+      </div>
+      <div class="col s12">
+        <div class="col s2 v-comment-profile">
+          <img src="images/no-image.jpg">
+        </div>
+        <div class="card col s10">
+          <div class="card-content v-comment-card">
+            <p class="card-title v-comment-name">Card Title</p>
+            <p>I am a very simple card. I am good at containing small bits of information.
+            I am convenient because I require little markup to use effectively.</p>
+          </div>
+        </div>  
+      </div>
+      <div class="col s12">
+        <div class="col s2 v-comment-profile">
+          <img src="images/no-image.jpg">
+        </div>
+        <div class="card col s10">
+          <div class="card-content v-comment-card">
+            <p class="card-title v-comment-name">Card Title</p>
+            <p>I am a very simple card. I am good at containing small bits of information.
+            I am convenient because I require little markup to use effectively.</p>
+          </div>
+        </div>  
+      </div>
     </div>
   </div>
 </div><!-- row -->
-@endsection
-
-
-@section('scripts')
-  <script type="text/javascript" src="{{ asset('js/viewmore.js') }}"></script>
 @endsection
