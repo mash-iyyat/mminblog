@@ -20,61 +20,20 @@
       <li class="collection-header">
         <p>Pinned blogs</p>
       </li>
+      @foreach($pinnedBlogs as $blog)
       <li class="collection-item avatar">
-        <a href="#">
-          <a href="#!" class="secondary-content"><i class="fa fa-bookmark"></i></a>
+        <a>
+          <a class="secondary-content"><i class="fa fa-bookmark"></i></a>
           <img src="images/no-image.jpg" alt="" class="circle">
-          <p class="top-blog-title">Bakit natin ito ginagamit?</p>
+          <a href="/blog/view={{$blog->id}}" class="top-blog-title">{{$blog->title}}</a>
           <p>
-            By Mashu Case Files-2nd Archives <br>
-            Posted 3 days ago
+            {{$blog->user->username}} <br>
+            {{$blog->created_at}}
           </p>  
         </a>
       </li>
-      <li class="collection-item avatar">
-        <a href="#">
-          <a href="#!" class="secondary-content"><i class="fa fa-bookmark"></i></a>
-          <img src="images/no-image.jpg" alt="" class="circle">
-          <p class="top-blog-title">Bakit natin ito ginagamit?</p>
-          <p>
-            By Mashu Case Files-2nd Archives <br>
-            Posted 3 days ago
-          </p>  
-        </a>
-      </li>
-      <li class="collection-item avatar">
-        <a href="#">
-          <a href="#!" class="secondary-content"><i class="fa fa-bookmark"></i></a>
-          <img src="images/no-image.jpg" alt="" class="circle">
-          <p class="top-blog-title">Bakit natin ito ginagamit?</p>
-          <p>
-            By Mashu Case Files-2nd Archives <br>
-            Posted 3 days ago
-          </p>  
-        </a>
-      </li>
-      <li class="collection-item avatar">
-        <a href="#">
-          <a href="#!" class="secondary-content"><i class="fa fa-bookmark"></i></a>
-          <img src="images/no-image.jpg" alt="" class="circle">
-          <p class="top-blog-title">Bakit natin ito ginagamit?</p>
-          <p>
-            By Mashu Case Files-2nd Archives <br>
-            Posted 3 days ago
-          </p>  
-        </a>
-      </li>
-      <li class="collection-item avatar">
-        <a href="#">
-          <a href="#!" class="secondary-content"><i class="fa fa-bookmark"></i></a>
-          <img src="images/no-image.jpg" alt="" class="circle">
-          <p class="top-blog-title">Bakit natin ito ginagamit?</p>
-          <p>
-            By Mashu Case Files-2nd Archives <br>
-            Posted 3 days ago
-          </p>  
-        </a>
-      </li>
+      @endforeach
+      
     </ul>
 
     <ul class="collection">
@@ -136,11 +95,16 @@
 
   <div class="col l6 s12 m12">
     <h3 class="blog-header">Recent blogs</h3>
-    <div id="macy-container" class="blog-container">
+    <div class="blog-container">
     	@foreach($blogs as $blog)
 	  		<div class="col">
 	        <a href="blog/view={{$blog->id}}" class="blog-cards">
 	          <div class="card">
+              @if($blog->image != 'no-image.jpg')
+              <div class="card-image">
+                <img src="storage/images/blog_images/{{$blog->image}}">
+              </div>
+              @endif
 	            <div class="card-content">
 	              <p>{{$blog->user->username}}</p>
 	              <p class="posted-at">{{$blog->created_at}}</p>
@@ -151,24 +115,8 @@
 	        </a>
 	      </div>
     	@endforeach
-      
-      <!-- <div class="col">
-        <a href="viewblog.html" class="blog-cards">
-          <div class="card">
-            <div class="card-image">
-              <img src="images/005.png">
-            </div>
-            <div class="card-content">
-              <p>By The Real Emiya Page</p>
-              <p class="posted-at">Posted 7 weeks</p>
-              <p class="card-blog-title">Saan ako makakakuha?</p>
-              <p class="blog-content">Ang Lorem Ipsum ay ginagamit na modelo ng industriya ng pagpriprint at pagtytypeset.</p>
-            </div>
-          </div>  
-        </a>
-      </div>  --> 
-      <button class="btn-flat btn green white-text waves-effect" id="view-more-btn">View more</button>
     </div>
+    <button class="btn-flat btn green white-text waves-effect" id="view-more-btn">View more</button>
   </div>
 </div><!-- row -->
 @endsection

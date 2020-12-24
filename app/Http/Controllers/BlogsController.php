@@ -5,13 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Blog;
+use App\Models\User;
 
 class BlogsController extends Controller
 {
   public function index() {
     $blogs = Blog::orderBy('created_at','DESC')->paginate(5);
+    $pinnedBlogs = Blog::orderBy('created_at','DESC')
+                        ->where('pinned', true)
+                        ->paginate(5);
   	return view('blogs.index', [
-      'blogs' => $blogs
+      'blogs' => $blogs,
+      'pinnedBlogs' => $pinnedBlogs
     ]);
   }
 
@@ -29,7 +34,10 @@ class BlogsController extends Controller
   		'pinned' => false
   	]);
 
-  	return response($request->all());
+  	return response()->json([
+      'blog' => $blog,
+      'user' => $blog->user()->get()
+    ]);
   }
 
   public function delete($id) 
@@ -62,6 +70,14 @@ class BlogsController extends Controller
     $blogs = Blog::orderBy('created_at','DESC')
                   ->with('user')
                   ->paginate(5);
+    return response()->json($blogs);
+  }
+
+  public function viewMoreProfileBlog()
+  {
+    $blogs = auth()->user()->blogs()
+                           ->with('user')
+                           ->paginate(5);
     return response()->json($blogs);
   }
 

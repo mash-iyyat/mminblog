@@ -5,16 +5,16 @@ $(document).ready(function() {
 	$('.modal').modal();
 });
 
-var macy = Macy({
-    container: '#macy-container',
-    trueOrder: false,
-    waitForImages: true,
-    margin: 0,
-    columns: 2,
-    breakAt: {
-        1200: 2,
-        940: 2,
-        520: 1,
-        400: 1
-    }
-});
+// var macy = Macy({
+//     container: '#macy-container',
+//     trueOrder: false,
+//     waitForImages: true,
+//     margin: 0,
+//     columns: 2,
+//     breakAt: {
+//         1200: 2,
+//         940: 2,
+//         520: 1,
+//         400: 1
+//     }
+// });
