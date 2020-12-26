@@ -43,18 +43,46 @@ class BlogsController extends Controller
   public function delete($id) 
   {
   	$blog = Blog::find($id);
+    if ($blog->image != 'no-image.jpg') {
+      Storage::delete('public/images/blog_images/'.$blog->image);
+    }
   	$blog->delete();
   }
 
   public function find($id) 
   {
   	$blog = Blog::find($id);
+    return response()->json([
+      'blog' => $blog,
+      'user' => $blog->user()->get()
+    ]);
   }
 
   public function update(Request $request ,$id)
   {
   	$blog = Blog::find($id);
-  	$blog->update($request->all());
+
+    if($request->has('image')){
+      $image = $request->image;
+      Storage::delete('public/images/blog_images/'.$blog->image);
+      $imageName = time()."_".auth()->user()->username.$image->getClientOriginalName();
+      $path = $image->storeAs('public/images/blog_images/', $imageName); 
+
+      $blog->update($request->except('image') + [
+        'image' => $imageName,
+        'pinned' => false
+      ]);
+    }else {
+      $blog->update($request->except('image') + [
+        'image' => $blog->image,
+        'pinned' => false
+      ]);  
+    }
+
+    return response()->json([
+      'blog' => $blog,
+      'user' => $blog->user()->get()
+    ]);
   }
 
   public function readBlog($id) 

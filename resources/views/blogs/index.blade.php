@@ -97,24 +97,27 @@
     <h3 class="blog-header">Recent blogs</h3>
     <div class="blog-container">
     	@foreach($blogs as $blog)
-	  		<div class="col">
-	        <a href="blog/view={{$blog->id}}" class="blog-cards">
-	          <div class="card">
+	  		<div class="col" id="blog-container-{{$blog->id}}">
+          <a href="blog/view={{$blog->id}}" class="blog-cards" id="blog-card-{{$blog->id}}">
+            <div class="card">
               @if($blog->image != 'no-image.jpg')
               <div class="card-image">
                 <img src="storage/images/blog_images/{{$blog->image}}">
               </div>
               @endif
-	            <div class="card-content">
-	              <p>{{$blog->user->username}}</p>
-	              <p class="posted-at">{{$blog->created_at}}</p>
-	              <p class="card-blog-title">{{$blog->title}}</p>
-	              <p class="blog-content">{{$blog->content}}</p>
-	            </div>
-	          </div>  
-	        </a>
-	      </div>
+              <div class="card-content">
+                <p>{{$blog->user->username}}</p>
+                <p class="posted-at">{{$blog->created_at}}</p>
+                <p class="card-blog-title">{{$blog->title}}</p>
+                <p class="blog-content">{{$blog->content}}</p>
+              </div>
+            </div>  
+          </a>
+        </div>
     	@endforeach
+      <div id="appendHere">
+        
+      </div>
     </div>
     <button class="btn-flat btn green white-text waves-effect" id="view-more-btn">View more</button>
   </div>

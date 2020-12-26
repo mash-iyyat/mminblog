@@ -145,49 +145,35 @@
     <div class="v-blog-comments row">
       <div class="v-comment-form">
         <form id="add-comment-form">
+          {{@csrf_field()}}
+          <input type="hidden" name="blog_id" value="{{$blog->id}}">
           <div class="input-field">
             <label>Add Comment</label>
-            <input type="text" name="comment">
+            <input type="text" name="comment" id="comment">
           </div>
         </form>
       </div>
-      <div class="col s12">
-        <div class="col s2 v-comment-profile">
-          <img src="images/no-image.jpg">
-        </div>
-        <div class="card col s10">
-          <div class="card-content v-comment-card">
-            <p class="card-title v-comment-name">Card Title</p>
-            <p>I am a very simple card. I am good at containing small bits of information.
-            I am convenient because I require little markup to use effectively.</p>
+      <div id="comments-container">
+        @foreach($blog->comments()->get() as $comment)
+          <div class="col s12">
+            <div class="col s2 v-comment-profile">
+              <img src="images/no-image.jpg">
+            </div>
+            <div class="card col s10">
+              <div class="card-content v-comment-card">
+                <p class="card-title v-comment-name">{{$comment->user->username}}</p>
+                <p>{{$comment->comment}}</p>
+              </div>
+            </div>  
           </div>
-        </div>  
+        @endforeach  
       </div>
-      <div class="col s12">
-        <div class="col s2 v-comment-profile">
-          <img src="images/no-image.jpg">
-        </div>
-        <div class="card col s10">
-          <div class="card-content v-comment-card">
-            <p class="card-title v-comment-name">Card Title</p>
-            <p>I am a very simple card. I am good at containing small bits of information.
-            I am convenient because I require little markup to use effectively.</p>
-          </div>
-        </div>  
-      </div>
-      <div class="col s12">
-        <div class="col s2 v-comment-profile">
-          <img src="images/no-image.jpg">
-        </div>
-        <div class="card col s10">
-          <div class="card-content v-comment-card">
-            <p class="card-title v-comment-name">Card Title</p>
-            <p>I am a very simple card. I am good at containing small bits of information.
-            I am convenient because I require little markup to use effectively.</p>
-          </div>
-        </div>  
-      </div>
+      
     </div>
   </div>
 </div><!-- row -->
+@endsection
+
+@section('scripts')
+  <script type="text/javascript" src="{{asset('js/create-comment.js')}}"></script>
 @endsection

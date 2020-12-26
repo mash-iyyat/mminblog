@@ -10,7 +10,7 @@
 <div id="create-blog-modal" class="modal">
 	<form id="create-blog-form">
 		<div class="modal-content">
-	    <h4>Create Blog</h4>
+	    <h4>Blog</h4>
 	    {{ @csrf_field() }}
 	    <div class="input-field">
 	      <input id="title" type="text" name="title" class="validate">
@@ -32,7 +32,38 @@
 	  </div>
 	  <div class="modal-footer">
 	    <button class="btn-flat green darken-1 login-btn waves-effect waves-light" type="submit">
-        Create Blog
+        Submit
+      </button>
+	  </div>	
+	</form>
+</div>
+
+<div id="edit-blog-modal" class="modal">
+	<form id="edit-blog-form">
+		<div class="modal-content">
+	    <h4>Edit Blog</h4>
+	    {{ @csrf_field() }}
+	    <div class="input-field">
+	      <input id="edit-title" type="text" name="title" class="validate">
+	      <label for="title">Blog title</label>
+	    </div>
+	    <div class="input-field">
+	      <textarea id="edit-content" class="materialize-textarea" name="content"></textarea>
+	      <label for="content">Textarea</label>
+	    </div>
+	    <div class="file-field input-field">
+	      <div class="btn">
+	        <span>Image</span>
+	        <input type="file" name="image">
+	      </div>
+	      <div class="file-path-wrapper">
+	        <input class="file-path validate" type="text">
+	      </div>
+	    </div>
+	  </div>
+	  <div class="modal-footer">
+	    <button class="btn-flat green darken-1 login-btn waves-effect waves-light" type="submit">
+        Save
       </button>
 	  </div>	
 	</form>
@@ -53,11 +84,10 @@
   		    Create Blog
   		  </a>
   		</div>
-  		<div id="blog-container">
-  			<div class="newPost"></div>
+  		<div id="blog-container" class="appendHere">
 	  		@foreach(Auth::user()->blogs()->orderBy('created_at','DESC')->paginate(5) as $blog)
-	  			<div class="col">
-		  			<a href="blog/view={{$blog->id}}" class="blog-cards">
+	  			<div class="col" id="blog-container-{{$blog->id}}">
+		  			<a href="blog/view={{$blog->id}}" class="blog-cards" id="blog-card-{{$blog->id}}">
 			        <div class="card">
 			          @if($blog->image != 'no-image.jpg')
 			          <div class="card-image">
@@ -72,6 +102,12 @@
 			          </div>
 			        </div>  
 			      </a>	
+			      <button class="btn btn-flat red darken-3 white-text" onclick="deleteBlog('{{$blog->id}}')">
+			      	<i class="fa fa-trash"></i>
+			      </button>
+			      <button class="btn btn-flat green darken-3 white-text modal-trigger" onclick="editPost('{{$blog->id}}')"  href="#edit-blog-modal">
+			      	<i class="fa fa-pencil"></i>
+			      </button>
 	  			</div>
 				@endforeach		
   		</div>
