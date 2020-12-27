@@ -17,6 +17,9 @@ class Blog extends Model
     	'pinned'
     ];
 
+    protected $attributes = [
+        'pinned' => false
+    ];
 
     public function user()
     {

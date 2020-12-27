@@ -24,7 +24,7 @@
       <li class="collection-item avatar">
         <a>
           <a class="secondary-content"><i class="fa fa-bookmark"></i></a>
-          <img src="images/no-image.jpg" alt="" class="circle">
+          <img src="{{asset('images/no-image.jpg')}}" alt="" class="circle">
           <a href="/blog/view={{$blog->id}}" class="top-blog-title">{{$blog->title}}</a>
           <p>
             {{$blog->user->username}} <br>

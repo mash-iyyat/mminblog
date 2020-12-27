@@ -69,13 +69,11 @@ class BlogsController extends Controller
       $path = $image->storeAs('public/images/blog_images/', $imageName); 
 
       $blog->update($request->except('image') + [
-        'image' => $imageName,
-        'pinned' => false
+        'image' => $imageName
       ]);
     }else {
       $blog->update($request->except('image') + [
-        'image' => $blog->image,
-        'pinned' => false
+        'image' => $blog->image
       ]);  
     }
 

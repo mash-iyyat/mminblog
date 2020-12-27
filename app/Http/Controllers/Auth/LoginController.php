@@ -26,7 +26,7 @@ class LoginController extends Controller
   	if (!auth()->attempt($request->only('email', 'password'), $request->remember)) {
 	    return back()->with('status', 'Invalid Login credentials');
 	  }
-	  return redirect()->route('index');
+	  return redirect()->route('blogs');
   }
 
 }

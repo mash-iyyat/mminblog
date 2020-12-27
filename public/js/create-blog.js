@@ -32,18 +32,29 @@ $(document).ready(function() {
 
 
 function deleteBlog(id) {
-	$.ajax({
-		type:'DELETE',
-		url:`${url}/blog/delete/${id}`,
-		data: {
-			_token: $('input[name=_token]').val()
-		}
-	}).done(res => {
-		Materialize.toast("Blog Deleted",2000);
-		$(`#blog-container-${id}`).fadeOut(500);
-	}).fail(err => {
-		console.log(err);
-	});
+	swal({
+    title: "Are you sure ?",
+    text: "The selected product will be deleted",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true
+  }).then((willDelete) => {
+  	if (willDelete) {
+	  	$.ajax({
+				type:'DELETE',
+				url:`${url}/blog/delete/${id}`,
+				data: {
+					_token: $('input[name=_token]').val()
+				}
+			}).done(res => {
+				Materialize.toast("Blog Deleted",2000);
+				$(`#blog-container-${id}`).fadeOut(500);
+			}).fail(err => {
+				console.log(err);
+			});	/* ajax */
+  	}/* if user clicks delete */
+  });
+	
 }
 
 function editPost(id)

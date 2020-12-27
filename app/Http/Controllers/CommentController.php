@@ -22,7 +22,8 @@ class CommentController extends Controller
 
   public function delete($id) 
   {
-  	
+  	$comment = Comment::find($id);
+    $comment->delete();
   }
 
 }

@@ -10,7 +10,7 @@
 <body>
 	<nav class="deep-purple lighten-1">
 	  <div class="nav-wrapper container">
-	    <a href="index.html" class="brand-logo">MashMin</a>
+	    <a href="{{route('index')}}" class="brand-logo">MashMin</a>
 	    <a href="#" data-activates="mobile-demo" class="button-collapse">
 	    	<i class="fa fa-bars" aria-hidden="true"></i>
 	    </a>
@@ -62,5 +62,6 @@
 	<script type="text/javascript" src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/mmin.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/sweetalert.min.js') }}"></script>
 	@yield('scripts')
 </html>
