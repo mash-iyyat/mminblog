@@ -7,11 +7,20 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\UpdateAccountController;
+
 
 Route::get('/', function () {
     return view('pages.index');
 })->name('index');
-Route::get('profile', [PagesController::class, 'profile'])->name('profile');
+
+Route::prefix('profile')->group(function() {
+	Route::get('/', [PagesController::class, 'profile'])->name('profile');
+	Route::get('/setting', [PagesController::class, 'setting'])->name('setting');
+	//UPDATE ACCOUNT API
+	Route::post('/update/account', [UpdateAccountController::class, 'updateInfo']);
+	Route::get('/update/image', [UpdateAccountController::class, 'updateImage']);
+});
 
 Route::get('/register', [RegisterController::class, 'index']);
 Route::post('/register', [RegisterController::class, 'create'])->name('register');

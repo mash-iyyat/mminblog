@@ -107,24 +107,34 @@
       @endauth
       
       <div id="comments-container">
-        @foreach($blog->comments()->orderBy('created_at','desc')->get() as $comment)
-          <div class="col s12" id="comment-c-{{$comment->id}}">
+        @foreach($blog->comments()->orderBy('created_at','desc')->limit(5)->get() as $comment)
+          <div class="card" id="comment-c-{{$comment->id}}">
             <div class="col s2 v-comment-profile">
               <img src="{{asset('images/no-image.jpg')}}">
             </div>
-            <div class="card col s10">
-              <div class="card-content v-comment-card">
-                <p class="card-title v-comment-name">{{$comment->user->username}}</p>
-                <p>{{$comment->comment}}</p>
-              </div>
-            </div>  
+            <div class="card-content">
+              <p class="card-title v-comment-name">{{$comment->user->username}}</p>
+              <p>{{$comment->comment}}</p>
+            </div>
             @auth
               @if($comment->belongsToMe(auth::user()->id))
-              <button class="btn btn-flat red white-text" onclick="deleteComment('{{$comment->id}}')">Delete</button>
+                <div class="card-action">
+                  <button class="btn-flat btn white-text waves-effect waves-light red" onclick="deleteComment('{{$comment->id}}')">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
               @endif
             @endauth
           </div>
-        @endforeach  
+        @endforeach 
+
+        @if($blog->comments->count() > 5)
+          <div class="center">
+            <button class="btn-flat btn white-text waves-effect waves-light green" id="view-more-comment-btn">
+              View more comment
+            </button>  
+          </div>
+        @endif
       </div>
       
     </div>

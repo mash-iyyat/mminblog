@@ -18,4 +18,9 @@ class PagesController extends Controller
   		'blogs' => $blogs
   	]);
   }
+
+  public function setting()
+  {
+    return view('pages.setting');
+  }
 }

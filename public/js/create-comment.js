@@ -1,3 +1,31 @@
+class Comment {
+	constructor(id, comment, username, created_at) {
+		this.id = id;
+		this.comment = comment;
+		this.username = username;
+		this.created_at = created_at;
+ 	}
+
+ 	commentCard() {
+ 		return `
+				<div class="card" id="comment-c-${this.id}">
+          <div class="col s2 v-comment-profile">
+            <img src="${url}/images/no-image.jpg">
+          </div>
+          <div class="card-content">
+            <p class="card-title v-comment-name">${this.username}</p>
+            <p>${this.comment}</p>
+          </div>
+          <div class="card-action">
+            <button class="btn-flat btn white-text waves-effect waves-light red" onclick="deleteComment('${this.id}')">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </div>
+			`
+ 	}
+}
+
 $('#add-comment-form').on('submit', function(e) {
 	e.preventDefault();
 	let commentData = new FormData(this);
@@ -11,22 +39,8 @@ $('#add-comment-form').on('submit', function(e) {
 	}).done(res => {
 		$('#comment').val("");
 		Materialize.toast('Comment Added',2000);
-		$('#comments-container').prepend(
-			`
-				<div class="col s12" id="comment-c-${res.comment.id}">
-          <div class="col s2 v-comment-profile">
-            <img src="${url}/images/no-image.jpg">
-          </div>
-          <div class="card col s10">
-            <div class="card-content v-comment-card">
-              <p class="card-title v-comment-name">${res.user[0].username}</p>
-              <p>${res.comment.comment}</p>
-            </div>
-          </div>  
-          <button class="btn btn-flat red white-text" onclick="deleteComment('{{$comment->id}}')">Delete</button>
-        </div>
-			`
-			);
+		let commentDataCard = new Comment(res.comment.id, res.comment.comment, res.user[0].username, res.comment.created_at);
+		$('#comments-container').prepend(commentDataCard.commentCard());
 		console.log(res);
 	}).fail(err => {
 		console.log(err);
@@ -34,11 +48,10 @@ $('#add-comment-form').on('submit', function(e) {
 
 })
 
-
 function deleteComment(id) {
 	swal({
     title: "Are you sure ?",
-    text: "The selected product will be deleted",
+    text: "The comment will be deleted",
     icon: "warning",
     buttons: true,
     dangerMode: true
