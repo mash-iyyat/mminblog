@@ -18,7 +18,9 @@
 	      <li><a href="{{route('blogs')}}" class="waves-effect">Blogs</a></li>
 	      <li><a href="gallery.html" class="waves-effect">Gallery</a></li>
 	      @auth
-	      <li><a href="{{route('profile')}}" class="waves-effect">{{auth()->user()->username}}</a></li>
+	      <li><a href="{{route('profile')}}" class="waves-effect">
+	      	<i class="fa fa-user"></i>
+	      </a></li>
 	      <li>
           <a class="dropdown-item" href="{{ route('logout') }}"
              onclick="event.preventDefault();document.getElementById('logout-form').submit();">

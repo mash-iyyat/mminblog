@@ -19,7 +19,7 @@ Route::prefix('profile')->group(function() {
 	Route::get('/setting', [PagesController::class, 'setting'])->name('setting');
 	//UPDATE ACCOUNT API
 	Route::post('/update/account', [UpdateAccountController::class, 'updateInfo']);
-	Route::get('/update/image', [UpdateAccountController::class, 'updateImage']);
+	Route::post('/update/image', [UpdateAccountController::class, 'updateImage']);
 });
 
 Route::get('/register', [RegisterController::class, 'index']);

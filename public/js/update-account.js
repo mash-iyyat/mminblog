@@ -19,3 +19,21 @@ $('#update-account-form').on('submit', function(e) {
 	});
 
 });
+
+$('#update-profile-form').on('submit', function(e) {
+	e.preventDefault();
+	let imageData = new FormData(this);
+	$.ajax({
+		type:'POST',
+		url:`${url}/profile/update/image`,
+		data:imageData,
+		contentType:false,
+		cache:false,
+		processData:false
+	}).done(res => {
+		Materialize.toast("Profile image Updated", 2000);
+		console.log(res)
+	}).fail(err => {
+		console.log(err)
+	});
+});

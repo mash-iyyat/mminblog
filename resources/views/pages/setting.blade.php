@@ -23,8 +23,37 @@
         </div>
       </div>
       <button class="btn btn-flat green waves-effect waves-light white-text">Save</button>
+      <a class="waves-effect waves-light btn modal-trigger btn btn-flat blue white-text" href="#profile">Change profile</a>
     </form>
 	</div>
+
+  
+
+  <!-- Modal Structure -->
+  <div id="profile" class="modal">
+    <form id="update-profile-form">
+      {{ @csrf_field() }}
+      <div class="modal-content">
+        <div class="image-container">
+          <img src="/storage/images/profiles/{{auth()->user()->image}}" style="width: 200px;height: 200px;">
+        </div>
+        <div class="file-field input-field col s4 offset-s4">
+          <div class="btn btn-flat blue waves-light waves-effect white-text">
+            <span>Profile</span>
+            <input type="file" name="image">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div>
+        </div>  
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-flat green waves-effect waves-light white-text modal-action">
+          Save Image
+        </button>
+      </div>
+    </form>
+  </div>
 @endsection
 
 @section('scripts')

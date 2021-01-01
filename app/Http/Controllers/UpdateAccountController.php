@@ -21,8 +21,14 @@ class UpdateAccountController extends Controller
 
    public function updateImage(Request $request)
    {
-     $updateImage = auth()->user()->image;
-     return response()->json($updateImage);
+    if ($request->has('image')) {
+      $image = $request->image;
+      $imageName = "profile".time()."_".auth()->user()->username.$image->getClientOriginalName();
+      $path = $image->storeAs('public/images/profiles/', $imageName);
+      auth()->user()->update(['image' => $imageName]);
+      return response()->json($imageName);
+    }
+      
    }
 
 }
