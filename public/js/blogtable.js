@@ -1,4 +1,5 @@
 let tableNumber = 2;
+
 class BlogTable {
 	constructor(title, content, id, createdAt, userName, image) {
 		this.title = title;
@@ -12,11 +13,11 @@ class BlogTable {
 
 	tableRow() {
 		return `
-			<tr>
+			<tr id="tr-${this.id}">
 	      <td id='td-${this.id}'>${this.title}</td>
 	      <td id='td-${this.id}'>${this.createdAt}</td>
 	      <td id='td-${this.id}'>
-	      	<button class="btn-flat btn waves-effect waves-light white-text red">
+	      	<button class="btn-flat btn waves-effect waves-light white-text red" onclick="deleteRow('${this.id}')">
 	      		<i class="fa fa-trash"></i>
 	      	</button>
 	      	<button class="btn btn-flat green darken-3 white-text modal-trigger" onclick="editRow('${this.id}')"  href="#edit-blog-modal">
@@ -26,8 +27,32 @@ class BlogTable {
 	    </tr>
 		`
 	}
-
 }
+
+$(document).ready(function() {
+	$('#create-blog-table-form').on('submit', function(e) {
+		e.preventDefault();
+		let blogData = new FormData(this)
+		$.ajax({
+			type:'POST',
+			url:`${url}/blog/create`,
+			data: blogData,
+			contentType:false,
+			cache:false,
+			processData:false
+		}).done(res => {
+			$('#create-modal').modal('close');
+			$('#create-title').val('');
+			$('#create-content').val('')
+			Materialize.toast("Blog added", 3000);
+			let responseBlog = new BlogTable(res.blog.title, res.blog.content, res.blog.id, res.blog.created_at, res.user[0].username, res.blog.image)
+			$('#blog-tbl-body').prepend(responseBlog.tableRow());
+			console.log(res);
+		}).fail(err => {
+			console.log(err);
+		})
+	})
+})
 
 function editRow(id)
 {
@@ -42,6 +67,32 @@ function editRow(id)
 	}).fail(err => {
 		console.log(err);
 	});
+}
+
+function deleteRow(id) {
+	swal({
+    title: "Are you sure ?",
+    text: "The selected product will be deleted",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true
+  }).then((willDelete) => {
+  	if (willDelete) {
+	  	$.ajax({
+				type:'DELETE',
+				url:`${url}/blog/delete/${id}`,
+				data: {
+					_token: $('input[name=_token]').val()
+				}
+			}).done(res => {
+				Materialize.toast("Blog Deleted",2000);
+				$(`#tr-${id}`).fadeOut(500).remove();
+			}).fail(err => {
+				console.log(err);
+			});	/* ajax */
+  	}/* if user clicks delete */
+  });
+	
 }
 
 $('#view-more-btn').on('click', function() {

@@ -20,8 +20,7 @@ $(document).ready(function() {
 			  $('#blog-container').prepend(blog.blogCardWithImage());
 			}
 			$('#create-blog-modal').modal('close');
-			$('#title').val("");
-			$('#content').val("");
+			$(this).reset();
 			Materialize.toast("Post Created",3000);
 		}).fail(err => {
 			console.log(err);
@@ -29,7 +28,6 @@ $(document).ready(function() {
 	});
 
 });
-
 
 function deleteBlog(id) {
 	swal({
