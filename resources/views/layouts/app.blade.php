@@ -2,9 +2,9 @@
 <html>
 <head>
 	<title>MashMin</title>
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/materialize.min.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.min.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+	<link rel="stylesheet" type="text/css" href="/css/materialize.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/app.css">
 	@yield('css')
 </head>
 <body>
@@ -61,9 +61,9 @@
 	</nav>
 	@yield('content')
 </body>
-	<script type="text/javascript" src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('js/mmin.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('js/sweetalert.min.js') }}"></script>
+	<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/js/materialize.min.js"></script>
+  <script type="text/javascript" src="/js/mmin.js"></script>
+  <script type="text/javascript" src="/js/sweetalert.min.js"></script>
 	@yield('scripts')
 </html>
