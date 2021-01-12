@@ -25,7 +25,7 @@ class BlogValidationRequest extends FormRequest
     {
         return [
           'title' => 'required|max:50',
-          'content' => 'required|max:500',
+          'content' => 'required',
           'image' => 'nullable',
           'image.*' => 'image|mimes:png,jpeg,jpg|max:2048',
         ];

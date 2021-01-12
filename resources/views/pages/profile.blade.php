@@ -118,7 +118,7 @@
 	  	@foreach(Auth::user()->blogs()->orderBy('created_at','DESC')->paginate(5) as $blog)
 		  	<tr id="tr-{{$blog->id}}">
 		      <td class="td-{{$blog->id}}">{{$blog->title}}</td>
-		      <td class="td-{{$blog->id}}">{{$blog->created_at->diffForHumans()}}</td>
+		      <td class="td-{{$blog->id}}">{{$blog->created_at}}</td>
 		      <td class="td-{{$blog->id}}">
 		      	<button class="btn-flat btn waves-effect waves-light white-text red" onclick="deleteRow('{{$blog->id}}')">
 		      		<i class="fa fa-trash"></i>

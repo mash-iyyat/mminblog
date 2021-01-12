@@ -14,9 +14,9 @@ class BlogTable {
 	tableRow() {
 		return `
 			<tr id="tr-${this.id}">
-	      <td id='td-${this.id}'>${this.title}</td>
-	      <td id='td-${this.id}'>${this.createdAt}</td>
-	      <td id='td-${this.id}'>
+	      <td class='td-${this.id}'>${this.title}</td>
+	      <td class='td-${this.id}'>${this.createdAt}</td>
+	      <td class='td-${this.id}'>
 	      	<button class="btn-flat btn waves-effect waves-light white-text red" onclick="deleteRow('${this.id}')">
 	      		<i class="fa fa-trash"></i>
 	      	</button>
@@ -26,6 +26,21 @@ class BlogTable {
 	      </td>
 	    </tr>
 		`
+	}
+
+	tableData() {
+		return `
+			<td class='td-${this.id}'>${this.title}</td>
+      <td class='td-${this.id}'>${this.createdAt}</td>
+      <td class='td-${this.id}'>
+      	<button class="btn-flat btn waves-effect waves-light white-text red" onclick="deleteRow('${this.id}')">
+      		<i class="fa fa-trash"></i>
+      	</button>
+      	<button class="btn btn-flat green darken-3 white-text modal-trigger" onclick="editRow('${this.id}')"  href="#edit-blog-modal">
+	      	<i class="fa fa-pencil"></i>
+	      </button>
+      </td>
+		`;
 	}
 }
 
@@ -126,8 +141,11 @@ $('#edit-blog-form').on('submit',function(e) {
 		processData: false,
 	}).done(res => {
 		$('#edit-blog-modal').modal('close');
-		Materialize.toast("Blog Updated!",3000);
+		$(`.td-${res.blog.id}`).remove();
 		console.log(res)
+		let newTd = new BlogTable(res.blog.title, res.blog.content, res.blog.id, res.blog.created_at, res.user[0].username, res.blog.image);
+		$(`#tr-${res.blog.id}`).prepend(newTd.tableData());
+		Materialize.toast("Blog Updated!",3000);
 	}).fail(errr => {
 		console.log(err)
 	});

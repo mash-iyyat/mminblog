@@ -52,7 +52,7 @@
       @if($blog->image != 'no-image.jpg')
       <img src="/storage/images/blog_images/{{$blog->image}}" class="v-blog-image">
       @endif
-      <p class="v-blog-content">{{$blog->content}}</p>
+      <p class="v-blog-content">{!!$blog->content!!}</p>
     </div>
     @auth
       @if(Auth::user()->id === $blog->user->id)

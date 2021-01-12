@@ -87,9 +87,14 @@ class BlogsController extends Controller
   public function readBlog($id) 
   {
     $blog = Blog::find($id);
-    return view('blogs.readblog', [
-      'blog' => $blog
-    ]);
+    if (!$blog) {
+      abort(404);
+    }else {
+      return view('blogs.readblog', [
+        'blog' => $blog
+      ]);  
+    }
+    
   }
 
   public function paginate()
