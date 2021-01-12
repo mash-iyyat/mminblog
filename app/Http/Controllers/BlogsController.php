@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\BlogValidationRequest;
 use App\Models\Blog;
 use App\Models\User;
 
@@ -20,7 +21,7 @@ class BlogsController extends Controller
     ]);
   }
 
-  public function create(Request $request)
+  public function create(BlogValidationRequest $request)
   {
     $imageName = 'no-image.jpg';
     if($request->has('image')){

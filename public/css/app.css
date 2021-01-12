@@ -125,3 +125,13 @@ footer {
 {
 	margin-top: 40px;
 }
+.view-more-container {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.table-container {
+	border: .1px solid gainsboro;
+  border-radius: 1%;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
