@@ -40,56 +40,18 @@
       <li class="collection-header">
         <p>Blog members</p>
       </li>
-      <li class="collection-item avatar">
-        <a href="#">
-          <a href="#!" class="secondary-content"><i class="fa fa-trophy"></i></a>
-          <img src="images/no-image.jpg" alt="" class="circle">
-          <p class="top-blog-title">Mashu Case Files-2nd Archives</p>
-          <p>
-            300 blogs
-          </p>  
-        </a>
-      </li>
-      <li class="collection-item avatar">
-        <a href="#">
-          <a href="#!" class="secondary-content"><i class="fa fa-trophy"></i></a>
-          <img src="images/no-image.jpg" alt="" class="circle">
-          <p class="top-blog-title">Kiyohimemes</p>
-          <p>
-            102 blogs
-          </p>  
-        </a>
-      </li>
-      <li class="collection-item avatar">
-        <a href="#">
-          <a href="#!" class="secondary-content"><i class="fa fa-trophy"></i></a>
-          <img src="images/no-image.jpg" alt="" class="circle">
-          <p class="top-blog-title">Lancelot Milfs Magic</p>
-          <p>
-            69 blogs
-          </p>  
-        </a>
-      </li>
-      <li class="collection-item avatar">
-        <a href="#">
-          <a href="#!" class="secondary-content"><i class="fa fa-trophy"></i></a>
-          <img src="images/no-image.jpg" alt="" class="circle">
-          <p class="top-blog-title">The Royal Speedwagon</p>
-          <p>
-            50 blogs
-          </p>  
-        </a>
-      </li>
-      <li class="collection-item avatar">
-        <a href="#">
-          <a href="#!" class="secondary-content"><i class="fa fa-trophy"></i></a>
-          <img src="images/no-image.jpg" alt="" class="circle">
-          <p class="top-blog-title">The Real Emiya</p>
-          <p>
-            20 blogs
-          </p>  
-        </a>
-      </li>
+      @foreach($users as $user)
+        <li class="collection-item avatar">
+          <a href="#">
+            <a href="#!" class="secondary-content"><i class="fa fa-trophy"></i></a>
+            <img src="images/no-image.jpg" alt="" class="circle">
+            <p class="top-blog-title">{{$user->username}}</p>
+            <p>
+              {{$user->blogs()->count()}} blogs
+            </p>  
+          </a>
+        </li>
+      @endforeach
     </ul>
   </div>
 

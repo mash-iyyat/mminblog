@@ -22,7 +22,7 @@ Route::prefix('profile')->group(function() {
 	Route::post('/update/image', [UpdateAccountController::class, 'updateImage']);
 });
 
-Route::get('/register', [RegisterController::class, 'index']);
+Route::get('/mashmin/register', [RegisterController::class, 'index']);
 Route::post('/register', [RegisterController::class, 'create'])->name('register');
 Route::get('/login', [LoginController::class, 'index']);
 Route::post('/login', [LoginController::class, 'create'])->name('login');

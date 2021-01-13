@@ -12,12 +12,14 @@ class BlogsController extends Controller
 {
   public function index() {
     $blogs = Blog::orderBy('created_at','DESC')->paginate(5);
+    $users = User::orderBy('created_at','DESC')->get();
     $pinnedBlogs = Blog::orderBy('created_at','DESC')
                         ->where('pinned', true)
                         ->paginate(5);
   	return view('blogs.index', [
       'blogs' => $blogs,
-      'pinnedBlogs' => $pinnedBlogs
+      'pinnedBlogs' => $pinnedBlogs,
+      'users' => $users
     ]);
   }
 
