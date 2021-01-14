@@ -22,6 +22,13 @@ class RegisterController extends Controller
 
   public function create(Request $request)
   {
+    $this->validate($request, [
+      'firstname' => 'required',
+      'lastname' => 'required',
+      'username' => 'required|unique:users,username',
+      'email' => 'required|unique:users,email',
+      'password' => 'required|confirmed'
+    ]);
   	$user = User::create($request->except('password') + [
   		'password' => Hash::make($request->password),
   		'image' => 'no-image.jpg'

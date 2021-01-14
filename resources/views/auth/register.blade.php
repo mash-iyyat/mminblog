@@ -10,27 +10,56 @@
         <form action="/register" method="POST">
         	{{csrf_field()}}
 	        <div class="card-content">
+	        	@error('firstname')
+	        	<div class="chip red darken-1 white-text">
+					    {{ $message }}
+					  </div>
+	        	@enderror
 	          <div class="input-field">
-	            <input id="firstname" type="text" name="firstname" class="validate">
+	            <input id="firstname" type="text" name="firstname" class="validate" value="{{ old('firstname') }}">
 	            <label for="firstname">Firstname</label>
 	          </div>
+	          @error('lastname')
+	        	<div class="chip red darken-1 white-text">
+					    {{ $message }}
+					  </div>
+	        	@enderror
 	          <div class="input-field">
-	            <input id="lastname" type="text" name="lastname" class="validate">
+	            <input id="lastname" type="text" name="lastname" class="validate" value="{{ old('lastname') }}">
 	            <label for="lastname">Lastname</label>
 	          </div>
-	          <!-- <span class="error-msg">Username already taken</span> -->
+	          @error('username')
+	        	<div class="chip red darken-1 white-text">
+					    {{ $message }}
+					  </div>
+	        	@enderror
 	          <div class="input-field">
-	            <input id="username" type="text" name="username" class="validate">
+	            <input id="username" type="text" name="username" class="validate" value="{{ old('username') }}">
 	            <label for="username">Username</label>
 	          </div>
+	          @error('email')
+	        	<div class="chip red darken-1 white-text">
+					    {{ $message }}
+					  </div>
+	        	@enderror
 	          <div class="input-field">
-	            <input id="email" type="email" name="email" class="validate">
+	            <input id="email" type="email" name="email" class="validate" value="{{ old('email') }}">
 	            <label for="email">Email</label>
 	          </div>
+	          @error('password')
+	        	<div class="chip red darken-1 white-text">
+					    {{ $message }}
+					  </div>
+	        	@enderror
 	          <div class="input-field">
 	            <input id="password" type="password" name="password" class="validate">
 	            <label for="password">Password</label>
 	          </div>
+	          @error('password_confirmation')
+	        	<div class="chip red darken-1 white-text">
+					    {{ $message }}
+					  </div>
+	        	@enderror
 	          <div class="input-field">
 	            <input id="password_confirmation" type="password" name="password_confirmation" class="validate">
 	            <label for="password_confirmation">Confirm Password</label>

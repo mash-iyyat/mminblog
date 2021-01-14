@@ -54,43 +54,6 @@
       @endif
       <p class="v-blog-content">{!!$blog->content!!}</p>
     </div>
-    @auth
-      @if(Auth::user()->id === $blog->user->id)
-        <button class="btn btn-flat green darken-3 white-text modal-trigger" onclick="editPost('{{$blog->id}}')"  href="#edit-blog-modal">
-          <i class="fa fa-pencil"></i>
-        </button>
-        <div id="edit-blog-modal" class="modal">
-          <form id="edit-blog-form">
-            <div class="modal-content">
-              <h4>Edit Blog</h4>
-              {{ @csrf_field() }}
-              <div class="input-field">
-                <input id="edit-title" type="text" name="title" class="validate">
-                <label for="title">Blog title</label>
-              </div>
-              <div class="input-field">
-                <textarea id="edit-content" class="materialize-textarea" name="content"></textarea>
-                <label for="content">Textarea</label>
-              </div>
-              <div class="file-field input-field">
-                <div class="btn">
-                  <span>Image</span>
-                  <input type="file" name="image">
-                </div>
-                <div class="file-path-wrapper">
-                  <input class="file-path validate" type="text">
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button class="btn-flat green darken-1 login-btn waves-effect waves-light" type="submit">
-                Save
-              </button>
-            </div>  
-          </form>
-        </div>
-      @endif
-    @endauth
 
     <div class="v-blog-comments row">
       @auth

@@ -9,6 +9,11 @@
         <form method="POST" action="{{route('login')}}">
         	{{ @csrf_field() }}
 	        <div class="card-content">
+	        	@if(session('status'))
+	        	<div class="chip red darken-1 white-text">
+					    {{ session('status') }}
+					  </div>
+	        	@endif
 	          <div class="input-field">
 	            <input id="email" type="email" name="email" class="validate">
 	            <label for="email">Email</label>

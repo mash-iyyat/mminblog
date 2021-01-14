@@ -20,7 +20,7 @@ class LoginController extends Controller
   public function create(Request $request)
   {
   	$this->validate($request, [
-  		'email' => 'required',
+  		'email' => 'required|email',
   		'password' => 'required'
   	]);
   	if (!auth()->attempt($request->only('email', 'password'), $request->remember)) {
