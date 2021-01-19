@@ -35,6 +35,10 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $attributes = [
+        'role' => 'user'
+    ];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -46,11 +50,11 @@ class User extends Authenticatable
 
     public function blogs()
     {
-      return $this->hasMany(Blog::class, 'user_id');
+      return $this->hasMany('App\Models\Blog');
     }
 
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'user_id');
+      return $this->hasMany(Comment::class, 'user_id');
     }
 }

@@ -9,13 +9,6 @@
 <div class="row blog">
   <div class="col l4 offset-l1 hide-on-med-and-down">
 
-    <form class="search-blog-form">
-      <div class="input-field">
-        <i class="fa fa-search prefix"></i>
-        <input id="icon_prefix" type="text" class="validate" placeholder="Seach Blog">
-      </div> 
-    </form>
-
     <ul class="collection">
       <li class="collection-header">
         <p>Pinned blogs</p>
@@ -23,8 +16,7 @@
       @foreach($pinnedBlogs as $blog)
       <li class="collection-item avatar">
         <a>
-          <a class="secondary-content"><i class="fa fa-bookmark"></i></a>
-          <img src="{{asset('images/no-image.jpg')}}" alt="" class="circle">
+          <img src="storage/images/profiles/{{$blog->user->image}}" alt="" class="circle">
           <a href="/blog/view={{$blog->id}}" class="top-blog-title">{{$blog->title}}</a>
           <p>
             {{$blog->user->username}} <br>
@@ -33,7 +25,6 @@
         </a>
       </li>
       @endforeach
-      
     </ul>
 
     <ul class="collection">
@@ -43,8 +34,7 @@
       @foreach($users as $user)
         <li class="collection-item avatar">
           <a href="#">
-            <a href="#!" class="secondary-content"><i class="fa fa-trophy"></i></a>
-            <img src="images/no-image.jpg" alt="" class="circle">
+            <img src="storage/images/profiles/{{$user->image}}" alt="" class="circle">
             <p class="top-blog-title">{{$user->username}}</p>
             <p>
               {{$user->blogs()->count()}} blogs
@@ -89,4 +79,5 @@
 
 @section('scripts')
   <script type="text/javascript" src="{{ asset('js/viewmore.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/searchblog.js') }}"></script>
 @endsection

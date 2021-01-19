@@ -3,31 +3,6 @@
 @section('content')
 <div class="row blog">
   <div class="col l4 offset-l1 hide-on-med-and-down">
-
-    <form class="search-blog-form">
-      <div class="input-field">
-        <i class="fa fa-search prefix"></i>
-        <input id="icon_prefix" type="text" class="validate" placeholder="Seach Blog">
-      </div> 
-    </form>
-
-    <ul class="collection">
-      <li class="collection-header">
-        <p>Pinned blogs</p>
-      </li>
-      <li class="collection-item avatar">
-        <a href="#">
-          <a href="#!" class="secondary-content"><i class="fa fa-bookmark"></i></a>
-          <img src="{{asset('images/no-image.jpg')}}" alt="" class="circle">
-          <p class="top-blog-title">Bakit natin ito ginagamit?</p>
-          <p>
-            By Mashu Case Files-2nd Archives <br>
-            Posted 3 days ago
-          </p>  
-        </a>
-      </li>
-    </ul>
-
     <ul class="collection">
       <li class="collection-header">
         <p>Blog members</p>
@@ -47,6 +22,21 @@
 
   <div class="col l6 s12 m12">
     <h4 class="blog-header">{{$blog->title}}</h4><hr>
+    @auth
+      @if(Auth::user()->role == 'admin')
+        <div class="pin-container">
+          @if($blog->pinned == 'false')
+            <a class="chip btn btn-flat green darken-1 waves-effect waves-light white-text" onclick="pinBlog('{{$blog->id}}')" id="pin-btn">
+              <i class="fa fa-thumb-tack"></i>
+            </a>  
+          @else
+            <a class="chip btn btn-flat red darken-1 waves-effect waves-light white-text" onclick="unpinBlog('{{$blog->id}}')" id="pin-btn">
+              <i class="fa fa-thumb-tack"></i>
+            </a>  
+          @endif  
+        </div>
+      @endif
+    @endauth
     <p>{{$blog->user->username}} | {{$blog->created_at}}</p>
     <div class="v-blog-container">
       @if($blog->image != 'no-image.jpg')
@@ -80,7 +70,7 @@
               <p>{{$comment->comment}}</p>
             </div>
             @auth
-              @if($comment->belongsToMe(auth::user()->id))
+              @if($comment->belongsToMe(Auth::user()->id))
                 <div class="card-action">
                   <button class="btn-flat btn white-text waves-effect waves-light red" onclick="deleteComment('{{$comment->id}}')">
                     <i class="fa fa-trash"></i>

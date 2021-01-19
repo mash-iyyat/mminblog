@@ -100,3 +100,44 @@ $('#edit-blog-form').on('submit', function(e) {
 	});
 
 });	
+
+function pinBlog(id) {
+	$.ajax({
+		type:'POST',
+		url:`${url}/blog/pin/${id}`,
+		data: {
+			_token: $('input[name=_token]').val()
+		}
+	}).done(res => {
+		$('#pin-btn').remove();
+		Materialize.toast("Blog pinned", 1000);
+		$('.pin-container').append(`
+			<a class="chip btn btn-flat red darken-1 waves-effect waves-light white-text" onclick="unpinBlog('${id}')" id="pin-btn">
+        <i class="fa fa-thumb-tack"></i>
+      </a> 
+		`);
+		console.log(res);
+	}).fail(err => {
+		console.log(err);
+	})
+}
+
+function unpinBlog(id) {
+	$.ajax({
+		type:'POST',
+		url:`${url}/blog/unpin/${id}`,
+		data: {
+			_token: $('input[name=_token]').val()
+		}
+	}).done(res => {
+		$('#pin-btn').remove();
+		Materialize.toast("Blog unpinned", 1000);
+		$('.pin-container').append(`
+			<a class="chip btn btn-flat green darken-1 waves-effect waves-light white-text" onclick="pinBlog('${id}')" id="pin-btn">
+        <i class="fa fa-thumb-tack"></i>
+      </a> 
+		`);
+	}).fail(err => {
+		console.log(err);
+	})
+}

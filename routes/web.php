@@ -37,6 +37,8 @@ Route::prefix('blog')->group(function() {
 	Route::get('/view={id}', [BlogsController::class, 'readBlog']);
 	Route::get('/paginate',[BlogsController::class, 'paginate']);
 	Route::get('/profile/myblogs',[BlogsController::class, 'viewMoreProfileBlog']);
+	Route::post('/pin/{id}', [BlogsController::class, 'pinBlog']);
+	Route::post('/unpin/{id}', [BlogsController::class, 'unpinBlog']);
 });
 
 Route::prefix('comment')->group(function() {

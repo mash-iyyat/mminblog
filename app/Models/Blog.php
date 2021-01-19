@@ -23,13 +23,13 @@ class Blog extends Model
 
     public function user()
     {
-    	return $this->belongsTo(User::class, 'user_id');
+      return $this->belongsTo('App\Models\User', 'user_id');
     }
 
 
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'blog_id');
+      return $this->hasMany(Comment::class, 'blog_id');
     }
 
 }

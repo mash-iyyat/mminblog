@@ -115,4 +115,14 @@ class BlogsController extends Controller
     return response()->json($blogs);
   }
 
+  public function pinBlog($id) {
+    $blog = Blog::findOrFail($id);
+    $blog->update([ 'pinned' => true ]);
+  }
+
+  public function unpinBlog($id) {
+    $blog = Blog::findOrFail($id);
+    $blog->update([ 'pinned' => false ]);
+  }
+
 }
