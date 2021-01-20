@@ -57,7 +57,7 @@ $('#view-more-btn').on('click', e => {
 		if (res.data.length === 0) {
 			Materialize.toast("All blogs loaded", 2000);
 		}
-		console.log(res);
+		// console.log(res);
 		pageNumber = pageNumber + 1;
 		for(var x in res.data) {
 			let blog = new Blog(res.data[x].title,res.data[x].content,res.data[x].id,res.data[x].created_at,res.data[x].user.username, res.data[x].image);
@@ -77,7 +77,7 @@ $('#view-more-profile-btn').on('click', e => {
 		type:'GET',
 		url:`${url}/blog/profile/myblogs?page=${pageNumber}`
 	}).done(res => {
-		console.log(res);
+		// console.log(res);
 		if (res.data.length === 0) {
 			Materialize.toast("All blogs loaded", 2000);
 		}

@@ -7,16 +7,18 @@
       <li class="collection-header">
         <p>Blog members</p>
       </li>
+      @foreach($users as $user)
       <li class="collection-item avatar">
         <a href="#">
           <a href="#!" class="secondary-content"><i class="fa fa-trophy"></i></a>
-          <img src="{{asset('images/no-image.jpg')}}" alt="" class="circle">
-          <p class="top-blog-title">Mashu Case Files-2nd Archives</p>
+          <img src="/storage/images/profiles/{{$user->image}}" alt="" class="circle">
+          <p class="top-blog-title">{{$user->username}}</p>
           <p>
-            300 blogs
+            {{$user->blogs()->count()}} blog/s
           </p>  
         </a>
       </li>
+      @endforeach
     </ul>
   </div>
 

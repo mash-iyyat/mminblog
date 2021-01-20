@@ -32,4 +32,11 @@ class Blog extends Model
       return $this->hasMany(Comment::class, 'blog_id');
     }
 
+    public function belongsToMe($user_id)
+    {
+      if($this->user_id == $user_id) {
+        return true;
+      }
+    }
+
 }

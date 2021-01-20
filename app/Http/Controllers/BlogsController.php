@@ -33,8 +33,7 @@ class BlogsController extends Controller
     }
     
   	$blog = auth()->user()->blogs()->create($request->except('image') + [
-  		'image' => $imageName,
-  		'pinned' => false
+  		'image' => $imageName
   	]);
 
   	return response()->json([
@@ -49,7 +48,12 @@ class BlogsController extends Controller
     if ($blog->image != 'no-image.jpg') {
       Storage::delete('public/images/blog_images/'.$blog->image);
     }
-  	$blog->delete();
+    if ($blog->belongsToMe(auth()->user()->id)) {
+      $blog->delete();
+    }else {
+      abort(404);
+    }
+  	
   }
 
   public function find($id) 
@@ -64,7 +68,6 @@ class BlogsController extends Controller
   public function update(Request $request ,$id)
   {
   	$blog = Blog::find($id);
-
     if($request->has('image')){
       $image = $request->image;
       Storage::delete('public/images/blog_images/'.$blog->image);
@@ -89,11 +92,13 @@ class BlogsController extends Controller
   public function readBlog($id) 
   {
     $blog = Blog::find($id);
+    $users = User::orderBy('created_at','DESC')->get();
     if (!$blog) {
       abort(404);
     }else {
       return view('blogs.readblog', [
-        'blog' => $blog
+        'blog' => $blog,
+        'users' => $users
       ]);  
     }
     
