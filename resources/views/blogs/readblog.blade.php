@@ -24,21 +24,6 @@
 
   <div class="col l6 s12 m12">
     <h4 class="blog-header">{{$blog->title}}</h4><hr>
-    @auth
-      @if(Auth::user()->role == 'admin')
-        <div class="pin-container">
-          @if($blog->pinned == 'false')
-            <a class="chip btn btn-flat green darken-1 waves-effect waves-light white-text" onclick="pinBlog('{{$blog->id}}')" id="pin-btn">
-              <i class="fa fa-thumb-tack"></i>
-            </a>  
-          @else
-            <a class="chip btn btn-flat red darken-1 waves-effect waves-light white-text" onclick="unpinBlog('{{$blog->id}}')" id="pin-btn">
-              <i class="fa fa-thumb-tack"></i>
-            </a>  
-          @endif  
-        </div>
-      @endif
-    @endauth
     <p>{{$blog->user->username}} | {{$blog->created_at}}</p>
     <div class="v-blog-container">
       @if($blog->image != 'no-image.jpg')
@@ -50,7 +35,7 @@
     <div class="v-blog-comments row">
       @auth
         <div class="v-comment-form">
-          <form id="add-comment-form">
+          <form id="add-comment-form" autocomplete="off">
             {{@csrf_field()}}
             <input type="hidden" name="blog_id" value="{{$blog->id}}">
             <div class="input-field">
