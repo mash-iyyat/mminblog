@@ -14,8 +14,8 @@
       </li>
       @foreach($users as $user)
         <li class="collection-item avatar">
-          <a href="#">
-            <img src="storage/images/profiles/{{$user->image}}" alt="" class="circle">
+          <a>
+            <img src="/images/no-image.jpg" alt="" class="circle">
             <p class="top-blog-title">{{$user->username}}</p>
             <p>
               {{$user->blogs()->count()}} blogs
