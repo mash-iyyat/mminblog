@@ -7,37 +7,8 @@
   </div>
 </div>
 
-<div id="create-blog-modal" class="modal">
-	<form id="create-blog-form">
-		<div class="modal-content">
-	    <h4>Blog</h4>
-	    {{ @csrf_field() }}
-	    <div class="input-field">
-	      <input id="title" type="text" name="title" class="validate" data-length="50">
-	      <label for="title">Blog title</label>
-	    </div>
-	    <div class="input-field">
-	      <textarea id="content" class="materialize-textarea" name="content" data-length="500"></textarea>
-	      <label for="content">Textarea</label>
-	    </div>
-	    <div class="file-field input-field">
-	      <div class="btn">
-	        <span>Image</span>
-	        <input type="file" name="image">
-	      </div>
-	      <div class="file-path-wrapper">
-	        <input class="file-path validate" type="text">
-	      </div>
-	    </div>
-	  </div>
-	  <div class="modal-footer">
-	    <button class="btn-flat green darken-1 login-btn waves-effect waves-light" type="submit">
-        Submit
-      </button>
-	  </div>	
-	</form>
-</div>
 
+<!-- ===================EDIT MODAL FORM===================== -->
 <div id="edit-blog-modal" class="modal">
 	<form id="edit-blog-form">
 		<div class="modal-content">
@@ -67,10 +38,11 @@
 	  </div>	
 	</form>
 </div>
+<!-- ===================EDIT MODAL FORM===================== -->
 
+<!-- ===================CREATE MODAL FORM===================== -->
 <div class="create-post-container center">
 	<a class="waves-effect waves-light btn btn-flat green white-text modal-trigger" href="#create-modal">Create blog</a>
-
 	<div id="create-modal" class="modal modal-fixed-footer">
 		<form id="create-blog-table-form" autocomplete="off">
 			{{ @csrf_field() }}
@@ -99,8 +71,9 @@
 	      </button>
 	    </div>	
 		</form>
-	</div>	
+  </div>	
 </div>
+<!-- ===================CREATE MODAL FORM===================== -->
 
 <div class="container table-container">
   <table class="bordered centered" id="blog-table">
@@ -137,18 +110,5 @@
 @endsection
 
 @section('scripts')
-
-<!-- <script src="/js/tinymce.min.js"></script>
-<script>
-	tinymce.init({
-	  selector:'textarea',
-	  height:250,
-	  width:'100%',
-	  theme:'modern',
-	  resize:false,
-	  plugins: "link image code fullscreen paste",
-	});
-</script> -->
-<script type="text/javascript" src="{{ asset('js/blogtable.js') }}"></script>
-
+  <script type="text/javascript" src="{{ asset('js/blogtable.js') }}"></script>
 @endsection
