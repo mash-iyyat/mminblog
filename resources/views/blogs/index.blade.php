@@ -8,25 +8,6 @@
 </div>
 <div class="row blog">
   <div class="col l4 offset-l1 hide-on-med-and-down">
-
-    <ul class="collection">
-      <li class="collection-header">
-        <p>Pinned blogs</p>
-      </li>
-      @foreach($pinnedBlogs as $blog)
-      <li class="collection-item avatar">
-        <a>
-          <img src="storage/images/profiles/{{$blog->user->image}}" alt="" class="circle">
-          <a href="/blog/view={{$blog->id}}" class="top-blog-title">{{$blog->title}}</a>
-          <p>
-            {{$blog->user->username}} <br>
-            {{$blog->created_at}}
-          </p>  
-        </a>
-      </li>
-      @endforeach
-    </ul>
-
     <ul class="collection">
       <li class="collection-header">
         <p>Blog members</p>
