@@ -49,7 +49,6 @@
 	    </div>
 	    <div class="input-field">
 	      <textarea id="edit-content" class="materialize-textarea" name="content"></textarea>
-	      <label for="content">Textarea</label>
 	    </div>
 	    <div class="file-field input-field">
 	      <div class="btn">
@@ -73,7 +72,7 @@
 	<a class="waves-effect waves-light btn btn-flat green white-text modal-trigger" href="#create-modal">Create blog</a>
 
 	<div id="create-modal" class="modal modal-fixed-footer">
-		<form id="create-blog-table-form">
+		<form id="create-blog-table-form" autocomplete="off">
 			{{ @csrf_field() }}
 	  	<div class="modal-content">
 	      <h4>Create blog</h4>
@@ -83,7 +82,6 @@
 	      </div>
 	      <div class="input-field col s12">
 	        <textarea id="create-content" class="materialize-textarea" name="content"></textarea>
-	        <label for="content">Textarea</label>
 	      </div>
 	      <div class="file-field input-field">
 		      <div class="btn btn-flat blue white-text waves-light waves-effect">
@@ -140,6 +138,17 @@
 
 @section('scripts')
 
+<!-- <script src="/js/tinymce.min.js"></script>
+<script>
+	tinymce.init({
+	  selector:'textarea',
+	  height:250,
+	  width:'100%',
+	  theme:'modern',
+	  resize:false,
+	  plugins: "link image code fullscreen paste",
+	});
+</script> -->
 <script type="text/javascript" src="{{ asset('js/blogtable.js') }}"></script>
 
 @endsection

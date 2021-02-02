@@ -42,7 +42,7 @@
                 <p>{{$blog->user->username}}</p>
                 <p class="posted-at">{{$blog->created_at}}</p>
                 <p class="card-blog-title">{{$blog->title}}</p>
-                <p class="blog-content">{{$blog->content}}</p>
+                <p class="blog-content">{!!Str::limit($blog->content, 250)!!}</p>
               </div>
             </div>  
           </a>

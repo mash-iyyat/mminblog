@@ -8,20 +8,16 @@ class Comment {
 
  	commentCard() {
  		return `
-				<div class="card" id="comment-c-${this.id}">
-          <div class="col s2 v-comment-profile">
-            <img src="${url}/images/no-image.jpg">
-          </div>
-          <div class="card-content">
-            <p class="card-title v-comment-name">${this.username}</p>
-            <p>${this.comment}</p>
-          </div>
-          <div class="card-action">
-            <button class="btn-flat btn white-text waves-effect waves-light red" onclick="deleteComment('${this.id}')">
-              <i class="fa fa-trash"></i>
-            </button>
-          </div>
-        </div>
+			<li class="collection-item avatar" id="comment-${this.id}">
+        <img src="/images/no-image.jpg" alt="" class="circle">
+        <span class="title"><b>${this.username}</b> | ${this.created_at}</span>
+        <p>
+          ${this.comment}
+        </p>
+        <a onclick="deleteComment('${this.id}')" class="secondary-content">
+          <i class="fa fa-trash red-text"></i>
+        </a>
+      </li>
 			`
  	}
 }
@@ -65,7 +61,7 @@ function deleteComment(id) {
 				}
 			}).done(res => {
 				Materialize.toast("Comment Deleted",2000);
-				$(`#comment-c-${id}`).remove();
+				$(`#comment-${id}`).remove();
 			}).fail(err => {
 				console.log(err);
 			});	/* ajax */

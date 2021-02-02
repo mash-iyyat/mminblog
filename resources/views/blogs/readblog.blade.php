@@ -1,35 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row blog">
-  <div class="col l4 offset-l1 hide-on-med-and-down">
-    <ul class="collection">
-      <li class="collection-header">
-        <p>Blog members</p>
-      </li>
-      @foreach($users as $user)
-      <li class="collection-item avatar">
-        <a href="#">
-          <a href="#!" class="secondary-content"><i class="fa fa-trophy"></i></a>
-          <img src="/storage/images/profiles/{{$user->image}}" alt="" class="circle">
-          <p class="top-blog-title">{{$user->username}}</p>
-          <p>
-            {{$user->blogs()->count()}} blog/s
-          </p>  
-        </a>
-      </li>
-      @endforeach
-    </ul>
-  </div>
-
-  <div class="col l6 s12 m12">
+<div class="row">
+  <div class="col l8 offset-l2">
     <h4 class="blog-header">{{$blog->title}}</h4><hr>
-    <p>{{$blog->user->username}} | {{$blog->created_at}}</p>
     <div class="v-blog-container">
       @if($blog->image != 'no-image.jpg')
       <img src="/storage/images/blog_images/{{$blog->image}}" class="v-blog-image">
       @endif
-      <p class="v-blog-content">{!!$blog->content!!}</p>
+      <p style="text-align: justify;">{!!$blog->content!!}</p>
     </div>
 
     <div class="v-blog-comments row">
@@ -45,38 +24,25 @@
           </form>
         </div>
       @endauth
-      
-      <div id="comments-container">
-        @foreach($blog->comments()->orderBy('created_at','desc')->limit(5)->get() as $comment)
-          <div class="card" id="comment-c-{{$comment->id}}">
-            <div class="col s2 v-comment-profile">
-              <img src="{{asset('images/no-image.jpg')}}">
-            </div>
-            <div class="card-content">
-              <p class="card-title v-comment-name">{{$comment->user->username}}</p>
-              <p>{{$comment->comment}}</p>
-            </div>
+      <h4>Comments</h4>
+      <ul class="collection with-header" id="comments-container">
+        @foreach($blog->comments()->orderBy('created_at','DESC')->get() as $comment)
+          <li class="collection-item avatar" id="comment-{{$comment->id}}">
+            <img src="{{ asset('images/no-image.jpg') }}" alt="" class="circle">
+            <span class="title"><b>{{ $comment->user->username }}</b> | {{$comment->created_at}}</span>
+            <p>
+              {{$comment->comment}}
+            </p>
             @auth
-              @if($comment->belongsToMe(Auth::user()->id))
-                <div class="card-action">
-                  <button class="btn-flat btn white-text waves-effect waves-light red" onclick="deleteComment('{{$comment->id}}')">
-                    <i class="fa fa-trash"></i>
-                  </button>
-                </div>
+              @if(auth()->user()->id == $comment->user->id)
+                <a onclick="deleteComment('{{$comment->id}}')" class="secondary-content">
+                  <i class="fa fa-trash red-text"></i>
+                </a>
               @endif
             @endauth
-          </div>
-        @endforeach 
-
-        @if($blog->comments->count() > 5)
-          <div class="center">
-            <button class="btn-flat btn white-text waves-effect waves-light green" id="view-more-comment-btn">
-              View more comment
-            </button>  
-          </div>
-        @endif
-      </div>
-      
+          </li>
+        @endforeach
+      </ul>
     </div>
   </div>
 </div><!-- row -->
