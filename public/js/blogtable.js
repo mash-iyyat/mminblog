@@ -48,6 +48,11 @@ $(document).ready(function() {
 	$('#create-blog-table-form').on('submit', function(e) {
 		e.preventDefault();
 		let blogData = new FormData(this)
+		swal("Please wait...",{
+	    buttons:false,
+	    closeOnClickOutside:false,
+	    icon:"info"
+	  });
 		$.ajax({
 			type:'POST',
 			url:`${url}/blog/create`,
@@ -56,6 +61,7 @@ $(document).ready(function() {
 			cache:false,
 			processData:false
 		}).done(res => {
+			swal.close()
 			$('#create-modal').modal('close');
 			$('#create-title').val('');
 			$('#create-content').val('')
@@ -111,10 +117,16 @@ function deleteRow(id) {
 }
 
 $('#view-more-btn').on('click', function() {
+	swal("Please wait...",{
+    buttons:false,
+    closeOnClickOutside:false,
+    icon:"info"
+  });
 	$.ajax({
 		type:'GET',
 		url:`${url}/blog/paginate?page=${tableNumber}`,
 	}).done(res => {
+		swal.close()
 		if (res.data.length === 0) {
 			Materialize.toast("All blogs loaded", 2000);
 		}
@@ -132,6 +144,11 @@ $('#view-more-btn').on('click', function() {
 $('#edit-blog-form').on('submit',function(e) {
 	e.preventDefault();
 	let editBlogData = new FormData(this)
+	swal("Updating...",{
+    buttons:false,
+    closeOnClickOutside:false,
+    icon:"info"
+  });
 	$.ajax({
 		type:'POST',
 		data: editBlogData,
@@ -140,6 +157,7 @@ $('#edit-blog-form').on('submit',function(e) {
 		contentType:false,
 		processData: false,
 	}).done(res => {
+		swal.close()
 		$('#edit-blog-modal').modal('close');
 		$(`.td-${res.blog.id}`).remove();
 		console.log(res)

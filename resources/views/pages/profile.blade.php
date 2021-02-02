@@ -103,7 +103,7 @@
 	  </tbody>
 	</table>  
 	<div class="view-more-container center">
-		<button class="btn btn-flat green center waves-effect waves-light white-text" id="view-more-btn">View more</button>		
+		<button class="btn btn-flat green center waves-effect waves-light white-text" id="view-more-btn">View more</button>
 	</div>
 </div>
 	
