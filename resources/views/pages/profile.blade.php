@@ -76,9 +76,10 @@
 <!-- ===================CREATE MODAL FORM===================== -->
 
 <div class="container table-container">
-  <table class="bordered centered" id="blog-table">
+  <table class="bordered centered white" id="blog-table">
 	  <thead>
 	    <tr>
+	    	<th>#</th>
         <th>Title</th>
         <th>Date posted</th>
         <th>Options</th>
@@ -88,6 +89,7 @@
 	  <tbody id="blog-tbl-body">
 	  	@foreach(Auth::user()->blogs()->orderBy('created_at','DESC')->paginate(5) as $blog)
 		  	<tr id="tr-{{$blog->id}}">
+		      <td class="td-{{$blog->id}}">{{$blog->id}}</td>
 		      <td class="td-{{$blog->id}}">{{$blog->title}}</td>
 		      <td class="td-{{$blog->id}}">{{$blog->created_at}}</td>
 		      <td class="td-{{$blog->id}}">

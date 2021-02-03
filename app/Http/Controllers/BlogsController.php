@@ -130,4 +130,10 @@ class BlogsController extends Controller
     $blog->update([ 'pinned' => false ]);
   }
 
+  /*============= VUE APIS ==============*/
+
+  public function blogsJson() {
+    $blogs = Blog::orderBy('created_at','DESC')->with('user')->with('comments')->paginate(10);
+    return response()->json($blogs);
+  }
 }

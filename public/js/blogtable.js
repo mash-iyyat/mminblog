@@ -14,6 +14,7 @@ class BlogTable {
 	tableRow() {
 		return `
 			<tr id="tr-${this.id}">
+	      <td class='td-${this.id}'>${this.id}</td>
 	      <td class='td-${this.id}'>${this.title}</td>
 	      <td class='td-${this.id}'>${this.createdAt}</td>
 	      <td class='td-${this.id}'>

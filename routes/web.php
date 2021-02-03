@@ -45,3 +45,8 @@ Route::prefix('comment')->group(function() {
 	Route::post('/create', [CommentController::class, 'create']);
 	Route::delete('/delete/{id}', [CommentController::class, 'delete']);
 });
+
+
+Route::prefix('/api')->group(function() {
+	Route::get('/blogs/json', [BlogsController::class, 'blogsJson']);
+});

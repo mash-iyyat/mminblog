@@ -61,7 +61,8 @@ $('#view-more-btn').on('click', e => {
 	}).done(res => {	
 		swal.close()
 		if (res.data.length === 0) {
-			Materialize.toast("All blogs loaded", 2000, 'blue lighten-1');
+			$('#view-more-btn').remove()
+			Materialize.toast("All blogs loaded", 2000);
 		}
 		// console.log(res);
 		pageNumber = pageNumber + 1;
@@ -77,26 +78,3 @@ $('#view-more-btn').on('click', e => {
 		console.log(err);
 	})
 });
-
-// $('#view-more-profile-btn').on('click', e => {
-// 	$.ajax({
-// 		type:'GET',
-// 		url:`${url}/blog/profile/myblogs?page=${pageNumber}`
-// 	}).done(res => {
-// 		// console.log(res);
-// 		if (res.data.length === 0) {
-// 			Materialize.toast("All blogs loaded", 2000);
-// 		}
-// 		pageNumber = pageNumber + 1;
-// 		for(var x in res.data) {
-// 			let myBlogs = new Blog(res.data[x].title,res.data[x].content,res.data[x].id,res.data[x].created_at,res.data[x].user.username, res.data[x].image);
-// 			if (res.data[x].image === 'no-image.jpg') {
-// 				$('#blog-container').append(myBlogs.blogCard());
-// 			}else {
-// 			  $('#blog-container').append(myBlogs.blogCardWithImage());
-// 			}
-// 		}
-// 	}).fail(err => {
-// 		console.log(err);
-// 	})
-// });

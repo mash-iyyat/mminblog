@@ -52,7 +52,9 @@
         
       </div>
     </div>
-    <button class="btn-flat btn green white-text waves-effect" id="view-more-btn">View more</button>
+    <button class="btn-flat btn blue white-text waves-effect" id="view-more-btn" style="width: 100%">
+      Load more
+    </button>
   </div>
 </div><!-- row -->
 @endsection
