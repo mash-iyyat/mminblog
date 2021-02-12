@@ -1,39 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<nav class="grey darken-4">
+  <a href="{{ route('blogs') }}" class="brand-logo center">Blogs</a>
+</nav>
   <div class="section" style="margin-top: 50px;">
-    <div class="row container">
+    <div class="row container center">
+	  <img src="{{ asset('images/cover.png') }}" class="cover-image">
       <h2 class="header">Welcome to my blogpage</h2>
-      <h5 class="grey-text text-darken-3 lighten-3">Please visit my <a href="{{route('blogs')}}">blogs</a>, enjoy! :></h5>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="row container">
-      <div class="col s4" style="text-align: justify;">
-      	<h4>Read Blogs</h4>
-      	<p class="grey-text text-darken-3 lighten-3">
-	      	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	      	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	      	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	      </p>
-      </div>
-      <div class="col s4" style="text-align: justify;">
-      	<h4>Create Blogs</h4>
-      	<p class="grey-text text-darken-3 lighten-3">
-	      	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	      	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	      	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	      </p>
-      </div>
-      <div class="col s4" style="text-align: justify;">
-      	<h4>View my Gallery</h4>
-      	<p class="grey-text text-darken-3 lighten-3">
-	      	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	      	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-	      	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-	      </p>
-      </div>
     </div>
   </div>
 
@@ -41,7 +15,7 @@
 	  <div class="container">
 	    <div class="row">
 	      <div class="col l6 s12">
-	        <h5 class="white-text">Footer Content</h5>
+	        <h5 class="white-text">MashMinBlog</h5>
 	        <p class="grey-text text-lighten-4">This website is only made for research and case study purposes</p>
 	      </div>
 	      <div class="col l4 offset-l2 s12">
@@ -57,7 +31,7 @@
 	  </div>
 	  <div class="footer-copyright grey darken-4">
 	    <div class="container">
-	    © 2020 MashMinBlog
+	    © 2021 MashMinBlog
 	    </div>
 	  </div>
 	</footer>

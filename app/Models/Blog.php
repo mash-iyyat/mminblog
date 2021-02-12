@@ -9,12 +9,15 @@ class Blog extends Model
 {
     use HasFactory;
 
+    // protected $guarded = [];
+
     protected $fillable = [
     	'title',
     	'content',
     	'user_id',
     	'image',
-    	'pinned'
+      'pinned',
+      'slug'
     ];
 
     protected $attributes = [

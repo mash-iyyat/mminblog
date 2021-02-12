@@ -29,4 +29,18 @@ class LoginController extends Controller
 	  return redirect()->route('blogs');
   }
 
+  public function apiCreate(Request $request)
+  {
+  	$this->validate($request, [
+  		'email' => 'required|email',
+  		'password' => 'required'
+  	]);
+  	if (!auth()->attempt($request->only('email', 'password'), $request->remember)) {
+	    return response()->json(['message'=>'Unauthorized'],403);
+	  }
+	  return response()->json([
+		  'user'=> auth()->user()
+	  ]);
+  }
+
 }

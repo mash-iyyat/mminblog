@@ -20,9 +20,11 @@ Route::prefix('profile')->group(function() {
 	//UPDATE ACCOUNT API
 	Route::post('/update/account', [UpdateAccountController::class, 'updateInfo']);
 	Route::post('/update/image', [UpdateAccountController::class, 'updateImage']);
+	Route::post('/check-password',[UpdateAccountController::class, 'checkPassword']);
+	Route::post('/update-password',[UpdateAccountController::class, 'updatePassword']);
 });
 
-Route::get('/mashmin/register', [RegisterController::class, 'index']);
+// Route::get('/mashmin/register', [RegisterController::class, 'index']);
 Route::post('/register', [RegisterController::class, 'create'])->name('register');
 Route::get('/login', [LoginController::class, 'index']);
 Route::post('/login', [LoginController::class, 'create'])->name('login');
@@ -30,15 +32,16 @@ Route::post('/logout', [LogoutController::class, 'create'])->name('logout');
 
 Route::prefix('blog')->group(function() {
 	Route::get('/', [BlogsController::class, 'index'])->name('blogs');
-	Route::post('/create', [BlogsController::class, 'create']);
 	Route::get('/find/{id}', [BlogsController::class, 'find']);
+	Route::get('/read/{slug}', [BlogsController::class, 'readBlog']);
+	Route::get('/comments/{id}', [CommentController::class, 'blogComments']);
+	Route::get('/search/blog={data}', [BlogsController::class, 'search'])->name('search');
+	Route::get('/json',[BlogsController::class, 'jsonBlogs']);
+	Route::get('/json/profile',[BlogsController::class, 'jsonProfileBlogs']);
+
+	Route::post('/create', [BlogsController::class, 'create']);
 	Route::post('/update/{id}', [BlogsController::class, 'update']);
 	Route::delete('/delete/{id}', [BlogsController::class, 'delete']);
-	Route::get('/view={id}', [BlogsController::class, 'readBlog']);
-	Route::get('/paginate',[BlogsController::class, 'paginate']);
-	Route::get('/profile/myblogs',[BlogsController::class, 'viewMoreProfileBlog']);
-	Route::post('/pin/{id}', [BlogsController::class, 'pinBlog']);
-	Route::post('/unpin/{id}', [BlogsController::class, 'unpinBlog']);
 });
 
 Route::prefix('comment')->group(function() {
@@ -47,6 +50,11 @@ Route::prefix('comment')->group(function() {
 });
 
 
-Route::prefix('/api')->group(function() {
+Route::prefix('api')->group(function() {
 	Route::get('/blogs/json', [BlogsController::class, 'blogsJson']);
+	Route::get('/blogs/json/{id}',[BlogsController::class, 'blogsJsonFind']);
+	Route::post('/blogs/json/create', [BlogsController::class, 'blogsJsonCreate']);
+	Route::post('/blogs/json/update/{id}', [BlogsController::class, 'blogsJsonUpdate']);
+	Route::delete('/blogs/delete/{id}', [BlogsController::class, 'blogsJsonDelete']);
+	Route::post('/login', [LoginController::class, 'apiCreate']);
 });

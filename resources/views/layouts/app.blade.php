@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>MashMin</title>
+	<title>MashMinBlogs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="/css/materialize.min.css">
 	<link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="/css/app.css">
 	@yield('css')
 </head>
 <body>
-	<nav class="deep-purple lighten-1">
+	<nav class="blue lighten-1">
 	  <div class="nav-wrapper container">
-	    <a href="{{route('index')}}" class="brand-logo">MashMin</a>
+	    <a href="{{route('index')}}" class="brand-logo">MashMinBlogs</a>
 	    <a href="#" data-activates="mobile-demo" class="button-collapse">
 	    	<i class="fa fa-bars" aria-hidden="true"></i>
 	    </a>
@@ -43,9 +44,6 @@
               {{ __('Logout') }}
           </a>
         </li>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-          @csrf
-        </form>
 	      @endauth
 
 	      @guest

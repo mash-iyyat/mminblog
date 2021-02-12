@@ -1,66 +1,43 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="card blog-header">
-  <div class="container">
-    <h1>Blogs</h1>
-  </div>
-</div>
-<div class="row blog">
-  <div class="col l4 offset-l1 hide-on-med-and-down">
-    <ul class="collection">
-      <li class="collection-header">
-        <p>Blog members</p>
-      </li>
-      @foreach($users as $user)
-        <li class="collection-item avatar">
-          <a>
-            <img src="/images/no-image.jpg" alt="" class="circle">
-            <p class="top-blog-title">{{$user->username}}</p>
-            <p>
-              {{$user->blogs()->count()}} blogs
-            </p>  
-          </a>
-        </li>
-      @endforeach
+<nav class="grey darken-4">
+  <a href="{{ route('blogs') }}" class="brand-logo center">Blogs</a>
+</nav>
+<div class="row blog container">
+  <div class="col l5 hide-on-med-and-down">
+    <form autocomplete="off">
+      <div class="input-field">
+        <label><i class="fa fa-search"></i> Search Blog</label>
+        <input type="text" placeholder="Enter blog title..." name="blog">
+      </div>
+    </form>
+    <ul class="collection with-header">
+      <li class="collection-header"><h5>Pinned blogs</h5></li>
+      <a href="" class="collection-item"><i class="fa fa-chevron-right"></i> Sample blogs</a>
+      <a href="" class="collection-item"><i class="fa fa-chevron-right"></i> Sample blogs</a>
+      <a href="" class="collection-item"><i class="fa fa-chevron-right"></i> Sample blogs</a>
+      <a href="" class="collection-item"><i class="fa fa-chevron-right"></i> Sample blogs</a>
+      <a href="" class="collection-item"><i class="fa fa-chevron-right"></i> Sample blogs</a>
     </ul>
   </div>
-
-  <div class="col l6 s12 m12">
-    <h3 class="blog-header">Recent blogs</h3>
+  <div class="col l7 m12 s12">
     <div class="blog-container">
-    	@foreach($blogs as $blog)
-	  		<div class="col" id="blog-container-{{$blog->id}}">
-          <a href="blog/view={{$blog->id}}" class="blog-cards" id="blog-card-{{$blog->id}}">
-            <div class="card">
-              @if($blog->image != 'no-image.jpg')
-              <div class="card-image">
-                <img src="storage/images/blog_images/{{$blog->image}}">
-              </div>
-              @endif
-              <div class="card-content">
-                <p>{{$blog->user->username}}</p>
-                <p class="posted-at">{{$blog->created_at}}</p>
-                <p class="card-blog-title">{{$blog->title}}</p>
-                <p class="blog-content">{!!Str::limit($blog->content, 250)!!}</p>
-              </div>
-            </div>  
-          </a>
-        </div>
-    	@endforeach
-      <div id="appendHere">
-        
-      </div>
+      
     </div>
-    <button class="btn-flat btn blue white-text waves-effect" id="view-more-btn" style="width: 100%">
-      Load more
-    </button>
+
+    <div class="center">
+      <button class="btn-flat btn blue white-text waves-effect" id="view-more-btn" style="width: 80%">
+        Load more
+      </button>
+    </div>
+    
   </div>
 </div><!-- row -->
 @endsection
 
 
 @section('scripts')
-  <script type="text/javascript" src="{{ asset('js/viewmore.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/blogs.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/searchblog.js') }}"></script>
 @endsection

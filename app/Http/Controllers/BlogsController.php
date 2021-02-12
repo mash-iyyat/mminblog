@@ -33,12 +33,14 @@ class BlogsController extends Controller
     }
     
   	$blog = auth()->user()->blogs()->create($request->except('image') + [
-  		'image' => $imageName
+      'image' => $imageName,
+      'slug' => str_replace(' ', '-',$request->title)
   	]);
 
   	return response()->json([
       'blog' => $blog,
-      'user' => $blog->user()->get()
+      'user' => $blog->user()->first(),
+      'comments' => $blog->comments()->get()
     ]);
   }
 
@@ -89,9 +91,9 @@ class BlogsController extends Controller
     ]);
   }
 
-  public function readBlog($id) 
+  public function readBlog($slug) 
   {
-    $blog = Blog::find($id);
+    $blog = Blog::where('slug','=',$slug)->first();
     $users = User::orderBy('created_at','DESC')->get();
     if (!$blog) {
       abort(404);
@@ -101,23 +103,35 @@ class BlogsController extends Controller
         'users' => $users
       ]);  
     }
-    
   }
 
-  public function paginate()
+  public function search($data) 
   {
-    $blogs = Blog::orderBy('created_at','DESC')
-                  ->with('user')
-                  ->paginate(5);
-    return response()->json($blogs);
+    $blog = Blog::orderBy('created_at', 'DESC')
+                  ->where('title','like', '%'.$data.'%')
+                  ->get();
+    return response()->json(['blog' => $blog]);
   }
 
-  public function viewMoreProfileBlog()
+  public function jsonBlogs() {
+    $blogs = auth()->user()->blogs()
+                           ->orderBy('created_at', 'DESC')
+                           ->with('user')
+                           ->with('comments')
+                           ->paginate(5);
+    return response()->json([
+      'blogs' => $blogs
+    ]);
+  }
+
+  public function jsonProfileBlogs()
   {
     $blogs = auth()->user()->blogs()
+                           ->orderBy('created_at','DESC')
                            ->with('user')
+                           ->with('comments')
                            ->paginate(5);
-    return response()->json($blogs);
+    return response()->json(['blogs' => $blogs]);
   }
 
   public function pinBlog($id) {
@@ -131,9 +145,39 @@ class BlogsController extends Controller
   }
 
   /*============= VUE APIS ==============*/
-
   public function blogsJson() {
-    $blogs = Blog::orderBy('created_at','DESC')->with('user')->with('comments')->paginate(10);
+    $blogs = Blog::orderBy('created_at','DESC')->with('user')->with('comments')->paginate(6);
     return response()->json($blogs);
   }
+
+  public function blogsJsonCreate(Request $request)
+  {
+    $user = User::find($request->user_id);
+    $blog = $user->blogs()->create($request->all() + [
+      'image' => 'no-image.jpg'
+    ]);    
+    return response()->json($blog);
+  }
+
+  public function blogsJsonDelete($id) {
+    $blog = Blog::find($id);
+    $blog->delete();
+    return response()->json(['message' => 'Blog deleted']);
+  }
+
+  public function blogsJsonUpdate(Request $request, $id)
+  {
+    $user = User::find($request->user_id);
+    $blog = Blog::find($id);
+    $blog->update($request->all() + [
+      'image' => 'no-image.jpg'
+    ]);    
+    return response()->json($blog);
+  }
+
+  public function blogsJsonFind($id) {
+    $blog = Blog::find($id);
+    return response()->json(['blog' => $blog]);
+  }
+
 }

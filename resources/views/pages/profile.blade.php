@@ -1,116 +1,102 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="card blog-header">
-  <div class="container">
-    <h1>{{Auth::user()->username}}</h1>
-  </div>
-</div>
+<nav class="grey darken-4" style="margin-bottom:50px;">
+  <a href="{{ route('blogs') }}" class="brand-logo center">{{ Auth::user()->username }}</a>
+</nav>
 
-
-<!-- ===================EDIT MODAL FORM===================== -->
-<div id="edit-blog-modal" class="modal">
-	<form id="edit-blog-form">
-		<div class="modal-content">
-	    <h4>Edit Blog</h4>
-	    {{ @csrf_field() }}
-	    <div class="input-field">
-	      <input id="edit-title" type="text" name="title" class="validate">
-	      <label for="title">Blog title</label>
-	    </div>
-	    <div class="input-field">
-	      <textarea id="edit-content" class="materialize-textarea" name="content"></textarea>
-	    </div>
-	    <div class="file-field input-field">
-	      <div class="btn">
-	        <span>Image</span>
-	        <input type="file" name="image">
-	      </div>
-	      <div class="file-path-wrapper">
-	        <input class="file-path validate" type="text">
-	      </div>
-	    </div>
-	  </div>
-	  <div class="modal-footer">
-	    <button class="btn-flat green darken-1 login-btn waves-effect waves-light" type="submit">
-        Save
-      </button>
-	  </div>	
-	</form>
+<div class="row container">
+	<div class="col l4 hide-on-med-and-down">
+	  <ul class="collection">
+		<li class="collection-item">
+		  BLogs<a href="" class="secondary-content"><span class="badge new blue">{{ Auth::user()->blogs->count() }}</span></a>
+		</li>
+		<li class="collection-item">
+		  Pinned Blogs<a href="" class="secondary-content"><span class="badge new blue">{{ Auth::user()->comments->count() }}</span></a>
+		</li>
+	  </ul>
+	</div>
+	<div class="col l8 m10 offset-m1 s12">
+		<ul class="collection with-header">
+			<li class="collection-item center">
+			  <img src="{{ asset('images/no-image.jpg') }}" style="width:50%;border-radius:50%">
+			</li>
+			<li class="collection-header center">
+			  <h4>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h4>
+			  <span>{{ Auth::user()->email }}</span>
+			</li>
+			<li class="collection-item">
+			  <a href="{{ route('setting') }}" class="btn btn-flat blue lighten-1 white-text waves-effect waves-light" style="width:49%">
+				account setting
+			  </a>
+			  <a class="waves-effect waves-light lighten-1 btn btn-flat blue modal-trigger" href="#create-modal" style="width:49%">
+				Create blog
+			  </a>
+			</li>
+			<li class="collection-item">
+			  <h5><i class="fa fa-book"></i> Blogs</h5>
+			</li>
+			<div class="blog-collection-container">
+			  <!-- APPEND BLOGS HERE -->
+			</div>
+			</li>
+			  <button class="load-more-btn btn btn-flat waves-effect waves-light grey darken-4 white-text" style="width:100%">
+				Load more blogs
+			  </button>
+			</li>
+		</ul>
+	</div>
 </div>
-<!-- ===================EDIT MODAL FORM===================== -->
 
 <!-- ===================CREATE MODAL FORM===================== -->
 <div class="create-post-container center">
-	<a class="waves-effect waves-light btn btn-flat green white-text modal-trigger" href="#create-modal">Create blog</a>
 	<div id="create-modal" class="modal modal-fixed-footer">
 		<form id="create-blog-table-form" autocomplete="off">
 			{{ @csrf_field() }}
-	  	<div class="modal-content">
-	      <h4>Create blog</h4>
-	      <div class="input-field col s6">
-	        <input id="create-title" type="text" name="title">
-	        <label for="title">Blog title</label>
-	      </div>
-	      <div class="input-field col s12">
-	        <textarea id="create-content" class="materialize-textarea" name="content"></textarea>
-	      </div>
-	      <div class="file-field input-field">
-		      <div class="btn btn-flat blue white-text waves-light waves-effect">
-		        <span>Image</span>
-		        <input type="file" name="image">
-		      </div>
-		      <div class="file-path-wrapper">
-		        <input class="file-path validate" type="text">
-		      </div>
-		    </div>
-	    </div>
-	    <div class="modal-footer">
-	      <button class="btn-flat green darken-1 login-btn waves-effect waves-light" type="submit">
-	        Save
-	      </button>
-	    </div>	
+			<div class="modal-content">
+				<ul class="collection with-header">
+					<li class="collection-header"><h3>Create post</h3></li>
+					<li class="collection-item">
+						<div class="input-field col s6">
+							<input id="create-title" type="text" name="title" placeholder="Enter blog title...">
+							<label for="title"><i class="fa fa-pencil"></i> Blog title</label>
+						</div>
+					</li>
+					<li class="collection-item">
+						<div class="input-field col s12">
+							<label for="title"><i class="fa fa-pencil"></i> Blog Content</label>
+							<textarea id="create-content" class="materialize-textarea" name="content" placeholder="Enter blog content..."></textarea>
+						</div>
+					</li>
+					<li class="collection-item">
+						<div class="file-field input-field">
+							<div class="btn btn-flat blue white-text waves-light waves-effect">
+								<span><i class="fa fa-image"></i></span>
+								<input type="file" name="image">
+							</div>
+							<div class="file-path-wrapper">
+								<input class="file-path validate" type="text" placeholder="Add image to your blog">
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="modal-footer">
+				<button class="btn-flat red lighten-1 waves-effect waves-light white-text modal-close" type="button">
+					Cancel
+				</button>
+				<button class="btn-flat blue lighten-1 waves-effect waves-light white-text" type="submit">
+					Submit
+				</button>
+			</div>	
 		</form>
   </div>	
 </div>
 <!-- ===================CREATE MODAL FORM===================== -->
 
-<div class="container table-container">
-  <table class="bordered centered white" id="blog-table">
-	  <thead>
-	    <tr>
-	    	<th>#</th>
-        <th>Title</th>
-        <th>Date posted</th>
-        <th>Options</th>
-	    </tr>
-	  </thead>
-
-	  <tbody id="blog-tbl-body">
-	  	@foreach(Auth::user()->blogs()->orderBy('created_at','DESC')->paginate(5) as $blog)
-		  	<tr id="tr-{{$blog->id}}">
-		      <td class="td-{{$blog->id}}">{{$blog->id}}</td>
-		      <td class="td-{{$blog->id}}">{{$blog->title}}</td>
-		      <td class="td-{{$blog->id}}">{{$blog->created_at}}</td>
-		      <td class="td-{{$blog->id}}">
-		      	<button class="btn-flat btn waves-effect waves-light white-text red" onclick="deleteRow('{{$blog->id}}')">
-		      		<i class="fa fa-trash"></i>
-		      	</button>
-		      	<button class="btn btn-flat green darken-3 white-text modal-trigger" onclick="editRow('{{$blog->id}}')"  href="#edit-blog-modal">
-			      	<i class="fa fa-pencil"></i>
-			      </button>
-		      </td class="td-{{$blog->id}}">
-		    </tr>
-	  	@endforeach
-	  </tbody>
-	</table>  
-	<div class="view-more-container center">
-		<button class="btn btn-flat green center waves-effect waves-light white-text" id="view-more-btn">View more</button>
-	</div>
-</div>
-	
 @endsection
 
 @section('scripts')
-  <script type="text/javascript" src="{{ asset('js/blogtable.js') }}"></script>
+  <script src="{{ asset('js/blogtable.js') }}"></script>
+  <script src="{{ asset('js/profile.js') }}"></script>
 @endsection

@@ -6,6 +6,7 @@ $(document).ready(function() {
 	$('.parallax').parallax();
 });
 
+
 // var macy = Macy({
 //     container: '#macy-container',
 //     trueOrder: false,

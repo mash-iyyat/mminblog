@@ -15,10 +15,10 @@ class RegisterController extends Controller
     $this->middleware(['guest']);
   }
 
-  public function index()
-  {
-  	return view('auth.register');
-  }
+  // public function index()
+  // {
+  // 	return view('auth.register');
+  // }
 
   public function create(Request $request)
   {

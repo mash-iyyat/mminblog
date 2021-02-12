@@ -24,7 +24,7 @@ class BlogValidationRequest extends FormRequest
     public function rules()
     {
         return [
-          'title' => 'required|max:50',
+          'title' => 'required|max:50|unique:blogs,title',
           'content' => 'required',
           'image' => 'nullable',
           'image.*' => 'image|mimes:png,jpeg,jpg|max:2048',
@@ -36,6 +36,7 @@ class BlogValidationRequest extends FormRequest
       return [
         'title.required' => "Blog title is required.",
         'title.max' => "Maximum 50 characters for blog title.",
+        'title.unique' => 'Blog title already used',
         'content.required' => 'Blog content is required',
         'content.max' => 'Maximum 200 characters for blog content',
         'image.mimes' => 'Invalid image file type'

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UpdateAccountController extends Controller
 {
@@ -27,8 +28,24 @@ class UpdateAccountController extends Controller
       $path = $image->storeAs('public/images/profiles/', $imageName);
       auth()->user()->update(['image' => $imageName]);
       return response()->json($imageName);
-    }
-      
+    }  
+   }
+
+   public function checkPassword(Request $request)
+   {
+      if (Hash::check($request->password, auth()->user()->password)) {
+        return true;
+      }else {
+        return response()->json(['error' => "Password does'nt match"],403);
+      }
+   }
+
+   public function updatePassword(Request $request)
+   {
+     auth()->user()->update([
+      'password' => Hash::make($request->password)
+     ]);
+     return response()->json(['message' => "Password succesfuly reset"]);
    }
 
 }

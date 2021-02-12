@@ -1,54 +1,66 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row">
-  <div class="col l8 offset-l2">
-    <h4 class="blog-header">{{$blog->title}}</h4><hr>
-    <div class="v-blog-container">
+<nav class="grey darken-4">
+</nav>
+<div class="row" style="margin-top:30px">
+  <div class="col l6 offset-l1 m12 s12">
+    <ul class="collection with-header">
+      <li class="collection-header center">
+        <h4>{{ $blog->title }}</h4>
+        <span>Posted by {{ $blog->user->username }}</span>
+      </li>
       @if($blog->image != 'no-image.jpg')
-      <img src="/storage/images/blog_images/{{$blog->image}}" class="v-blog-image">
+        <li>
+          <img src="/storage/images/blog_images/{{ $blog->image }}" alt="" class="max-width">
+        </li> 
       @endif
-      <p style="text-align: justify;">{!!$blog->content!!}</p>
-    </div>
-
-    <div class="v-blog-comments row">
-      @auth
-        <div class="v-comment-form">
-          <form id="add-comment-form" autocomplete="off">
-            {{@csrf_field()}}
-            <input type="hidden" name="blog_id" value="{{$blog->id}}">
-            <div class="input-field">
-              <label>Add Comment</label>
-              <input type="text" name="comment" id="comment">
-            </div>
-          </form>
-        </div>
-      @endauth
-      <h4>Comments</h4>
-      <ul class="collection with-header" id="comments-container">
-        @foreach($blog->comments()->orderBy('created_at','DESC')->get() as $comment)
-          <li class="collection-item avatar" id="comment-{{$comment->id}}">
-            <img src="{{ asset('images/no-image.jpg') }}" alt="" class="circle">
-            <span class="title"><b>{{ $comment->user->username }}</b> | {{$comment->created_at}}</span>
-            <p>
-              {{$comment->comment}}
-            </p>
-            @auth
-              @if(auth()->user()->id == $comment->user->id)
-                <a onclick="deleteComment('{{$comment->id}}')" class="secondary-content">
-                  <i class="fa fa-trash red-text"></i>
-                </a>
-              @endif
-            @endauth
-          </li>
-        @endforeach
-      </ul>
-    </div>
+      <li class="collection-item" style="text-align:justify">
+        <p class="blog-content">{{ $blog->content }}</p>
+      </li>
+      <li class="collection-item center count-container">
+        
+      </li>
+      <li class="collection-item">
+        <form id="add-comment-form">
+          {{ @csrf_field() }}
+          <div class="input-field">
+            <label for="comment"><i class="fa fa-comment"></i></label>
+            <input type="hidden" name="blog_id" value="{{ $blog->id }}">
+            <textarea type="submit" class="materialize-textarea" name="comment" placeholder="Enter your comment" id="comment"></textarea>
+          </div>  
+          <button class="btn btn-flat white-text waves-effect waves-light blue lighten-1 max-width" type="submit">
+            Add comment
+          </button>
+        </form>
+      </li>
+    </ul>
+  </div>
+  <div class="col l5 m12 s12">
+    <ul class="collection with-header">
+      <li class="collection-header">
+        <h4>Comments</h4>
+      </li>
+      <div class="comments-container">
+          <!-- ========== APPEND COMMENTS HERE ============ -->
+      </div>
+      @if($blog->comments->count() > 5)
+      <li>
+        <button class="btn btn-flat white-text waves-effect waves-light blue lighten-1 max-width view-more-comment-btn">
+          View more comment
+        </button>
+      </li>
+      @endif
+    </ul>
   </div>
 </div><!-- row -->
 @endsection
 
 @section('scripts')
   <script type="text/javascript" src="{{asset('js/create-comment.js')}}"></script>
-  <script type="text/javascript" src="{{asset('js/create-blog.js')}}"></script>
+  <script>
+    $(document).ready(() => {
+      getComments('{{ $blog->id }}');
+    })
+  </script>
 @endsection
