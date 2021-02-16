@@ -35,10 +35,12 @@ class Blog extends Model
       return $this->hasMany(Comment::class, 'blog_id');
     }
 
-    public function belongsToMe($user_id)
+    public function isAuthorizedToDelete($userId)
     {
-      if($this->user_id == $user_id) {
+      if($this->user->id == $userId) {
         return true;
+      }else {
+        abort(403);
       }
     }
 

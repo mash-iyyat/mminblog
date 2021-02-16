@@ -25,13 +25,4 @@ class Comment extends Model
     {
     	return $this->belongsTo(Blog::class, 'blog_id');
     }
-
-    public function belongsToMe($userId) 
-    {
-        if ($this->user->id == $userId) {
-            return true;
-        }else {
-            return false;
-        }
-    }
 }

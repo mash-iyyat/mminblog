@@ -8,8 +8,8 @@ $(document).ready(function() {
 			type:'POST',
 			url:`${url}/blog/create`,
 			contentType: false,
-      cache: false,
-      processData: false,
+			cache: false,
+			processData: false,
 			data:blogData
 		}).done(res => {
 			console.log(res);

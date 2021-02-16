@@ -31,7 +31,10 @@
 	  </div>
 	  <div class="footer-copyright grey darken-4">
 	    <div class="container">
-	    © 2021 MashMinBlog
+		© 2021 MashMinBlog
+			@guest
+			<a class="grey-text text-lighten-4 right" href="{{ route('login') }}">Login</a>
+			@endguest
 	    </div>
 	  </div>
 	</footer>

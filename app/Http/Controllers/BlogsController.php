@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\BlogValidationRequest;
+use App\Notifications\UserNotification;
 use App\Models\Blog;
 use App\Models\User;
 
 class BlogsController extends Controller
 {
   public function index() {
-    $blogs = Blog::orderBy('created_at','DESC')->paginate(5);
+    $blogs = Blog::orderBy('created_at','DESC')->where('pinned', true)->get();
     $users = User::orderBy('created_at','DESC')->get();
     $pinnedBlogs = Blog::orderBy('created_at','DESC')
                         ->where('pinned', true)
@@ -34,7 +35,7 @@ class BlogsController extends Controller
     
   	$blog = auth()->user()->blogs()->create($request->except('image') + [
       'image' => $imageName,
-      'slug' => str_replace(' ', '-',$request->title)
+      'slug' => str_replace([' ', '?' ,'_'], '-',$request->title)
   	]);
 
   	return response()->json([
@@ -43,19 +44,18 @@ class BlogsController extends Controller
       'comments' => $blog->comments()->get()
     ]);
   }
-
+  
   public function delete($id) 
   {
   	$blog = Blog::find($id);
     if ($blog->image != 'no-image.jpg') {
       Storage::delete('public/images/blog_images/'.$blog->image);
     }
-    if ($blog->belongsToMe(auth()->user()->id)) {
+    if ($blog->user_id == auth()->user()->id) {
       $blog->delete();
     }else {
-      abort(404);
-    }
-  	
+      abort(403);
+    }	
   }
 
   public function find($id) 
@@ -67,13 +67,13 @@ class BlogsController extends Controller
     ]);
   }
 
-  public function update(Request $request ,$id)
+  public function update(Request $request, $id)
   {
-  	$blog = Blog::find($id);
-    if($request->has('image')){
+    $blog = Blog::findOrFail($id);
+    if($request->has('image')) {
       $image = $request->image;
       Storage::delete('public/images/blog_images/'.$blog->image);
-      $imageName = time()."_".auth()->user()->username.$image->getClientOriginalName();
+      $imageName = time()."_".auth()->user()->username.".".$image->getClientOriginalExtension();
       $path = $image->storeAs('public/images/blog_images/', $imageName); 
 
       $blog->update($request->except('image') + [
@@ -82,13 +82,22 @@ class BlogsController extends Controller
     }else {
       $blog->update($request->except('image') + [
         'image' => $blog->image
-      ]);  
+      ]);
     }
+    return response()->json(['blog' => $blog]);
+  }
 
-    return response()->json([
-      'blog' => $blog,
-      'user' => $blog->user()->get()
-    ]);
+  public function editBlog($slug)
+  {
+    $blog = Blog::where('slug','=',$slug)->first();
+    if(auth()->user()->id == $blog->user_id) {
+      return view('blogs.edit', [
+        'blog' => $blog
+      ]);
+    }else {
+      abort(404);
+    }
+    
   }
 
   public function readBlog($slug) 
@@ -114,8 +123,7 @@ class BlogsController extends Controller
   }
 
   public function jsonBlogs() {
-    $blogs = auth()->user()->blogs()
-                           ->orderBy('created_at', 'DESC')
+    $blogs = Blog::orderBy('created_at', 'DESC')
                            ->with('user')
                            ->with('comments')
                            ->paginate(5);
@@ -134,14 +142,28 @@ class BlogsController extends Controller
     return response()->json(['blogs' => $blogs]);
   }
 
+  public function jsonPinnedBlogs()
+  {
+    $pinned_blogs = Blog::orderBy('created_at','DESC')
+                        ->where('pinned', true)
+                        ->with('user')
+                        ->paginate(5);
+    return response()->json(['pinned_blogs' => $pinned_blogs]);
+  }
+
   public function pinBlog($id) {
     $blog = Blog::findOrFail($id);
     $blog->update([ 'pinned' => true ]);
+
+    $message = auth()->user()->username." pinned a new blog";
+    auth()->user()->notify(new UserNotification($message, $blog->slug));
   }
 
   public function unpinBlog($id) {
     $blog = Blog::findOrFail($id);
     $blog->update([ 'pinned' => false ]);
+    // $message = auth()->user()->username." pinned a new blog";
+    // auth()->user()->notify(new UserNotification($message, $blog->slug));
   }
 
   /*============= VUE APIS ==============*/

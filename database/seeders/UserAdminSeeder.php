@@ -22,7 +22,7 @@ class UserAdminSeeder extends Seeder
       	'lastname' => 'Delos Santos',
         'image' => 'no-image.jpg',
       	'email' => 'delossantos.mash@gmail.com',
-      	'password' => Hash::make('mashiyyatdialga'),
+      	'password' => Hash::make('11111111'),
         'role' => 'admin'
       ]);
     }

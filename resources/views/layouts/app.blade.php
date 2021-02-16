@@ -18,9 +18,15 @@
 	    <ul class="right hide-on-med-and-down">
 	      <li><a href="{{route('blogs')}}" class="waves-effect">Blogs</a></li>
 	      @auth
-	      <li><a href="{{route('profile')}}" class="waves-effect">
-	      	<i class="fa fa-user"></i>
-	      </a></li>
+		  <li class="waves-effect" id="count">
+		  	<a href="{{ route('notifications') }}" id="notification-count">
+			  <i class="fa fa-bell"></i> 
+			   <span class="red notification-count">
+			   	 {{ auth()->user()->unreadNotifications->count() }}
+			   </span>
+			</a>
+		  </li>
+	      <li><a href="{{route('profile')}}" class="waves-effect">{{auth()->user()->username}}</a></li>
 	      <li>
           <a class="dropdown-item" onclick="logout()">
               {{ __('Logout') }}
@@ -31,10 +37,8 @@
         </form>
 	      @endauth
 
-	      @guest
-	      <li><a href="{{route('login')}}" class="waves-effect">Login</a></li>
-	      @endguest
 	    </ul>
+
 	    <ul class="side-nav" id="mobile-demo">
 	      <li><a href="{{route('blogs')}}" class="waves-effect">Blogs</a></li>
 	      @auth
@@ -45,16 +49,14 @@
           </a>
         </li>
 	      @endauth
-
-	      @guest
-	      <li><a href="{{route('login')}}" class="waves-effect">Login</a></li>
-	      @endguest
 	  </div>
 	</nav>
+
 	@yield('content')
 </body>
-	<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="/js/materialize.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/js/materialize.min.js"></script>
   <script type="text/javascript" src="/js/mmin.js"></script>
   <script type="text/javascript" src="/js/sweetalert.min.js"></script>
  	<script>

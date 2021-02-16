@@ -6,17 +6,9 @@ $(document).ready(function() {
 	$('.parallax').parallax();
 });
 
-
-// var macy = Macy({
-//     container: '#macy-container',
-//     trueOrder: false,
-//     waitForImages: true,
-//     margin: 0,
-//     columns: 2,
-//     breakAt: {
-//         1200: 2,
-//         940: 2,
-//         520: 1,
-//         400: 1
-//     }
-// });
+function loader() {
+  swal({
+	text:'Loading....',
+	button:false
+  });
+}

@@ -21,6 +21,7 @@
       <li class="collection-item center count-container">
         
       </li>
+      @auth
       <li class="collection-item">
         <form id="add-comment-form">
           {{ @csrf_field() }}
@@ -34,6 +35,7 @@
           </button>
         </form>
       </li>
+      @endauth
     </ul>
   </div>
   <div class="col l5 m12 s12">

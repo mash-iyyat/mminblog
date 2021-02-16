@@ -14,11 +14,14 @@
     </form>
     <ul class="collection with-header">
       <li class="collection-header"><h5>Pinned blogs</h5></li>
-      <a href="" class="collection-item"><i class="fa fa-chevron-right"></i> Sample blogs</a>
-      <a href="" class="collection-item"><i class="fa fa-chevron-right"></i> Sample blogs</a>
-      <a href="" class="collection-item"><i class="fa fa-chevron-right"></i> Sample blogs</a>
-      <a href="" class="collection-item"><i class="fa fa-chevron-right"></i> Sample blogs</a>
-      <a href="" class="collection-item"><i class="fa fa-chevron-right"></i> Sample blogs</a>
+      <div id="pinned-blog-container">
+        <!-- =========== APPEND PINNED BLOGS HERE =============== -->
+      </div>
+      <li>
+        <button class="btn-flat btn blue white-text waves-effect waves-light max-width" id="view-more-pinned-blog">
+          <i class="fa fa-chevron-down"></i>
+        </button>
+      </li>
     </ul>
   </div>
   <div class="col l7 m12 s12">
@@ -27,8 +30,8 @@
     </div>
 
     <div class="center">
-      <button class="btn-flat btn blue white-text waves-effect" id="view-more-btn" style="width: 80%">
-        Load more
+      <button class="btn-flat btn blue white-text waves-effect max-width" id="view-more-btn">
+          <i class="fa fa-chevron-down"></i>
       </button>
     </div>
     

@@ -6,56 +6,14 @@
 </nav>
 
 <div class="row container">
-	<div class="col l4 hide-on-med-and-down">
-	  <ul class="collection">
-		<li class="collection-item">
-		  <i class="fa fa-chevron-right"></i> Blogs
-		  <a href="" class="secondary-content">
-			<span class="badge new blue">{{ Auth::user()->blogs->count() }}</span>
-		  </a>
-		</li>
-	  </ul>
-	  <ul class="collection with-header">
-		<li class="collection-header">
-		  <h5>Blog members</h5>
-		</li>
-		@foreach($users as $user)
-		  <li class="collection-item">
-			<i class="fa fa-chevron-right"></i> {{ $user->username }}
-		  </li>
-		@endforeach
-	  </ul>
-	</div>
-	<div class="col l8 m10 offset-m1 s12">
+	<div class="col l8 m10 offset-l2 offset-m1 s12">
 		<ul class="collection with-header">
-			<li class="collection-item center">
-			  <img src="{{ asset('images/no-image.jpg') }}" style="width:50%;border-radius:50%">
-			</li>
-			<li class="collection-header center">
-			  <h4>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</h4>
-			  <span>{{ Auth::user()->email }}</span>
-			</li>
-			<li class="collection-item">
-			  <a href="{{ route('setting') }}" class="btn btn-flat blue lighten-1 white-text waves-effect waves-light" style="width:49%">
-				account setting
-			  </a>
-			  <a class="waves-effect waves-light lighten-1 btn btn-flat blue modal-trigger" href="#create-modal" style="width:49%">
-				Create blog
-			  </a>
-			</li>
-			<li class="collection-item">
-			  <h5><i class="fa fa-book"></i> Blogs</h5>
-			</li>
-			<div class="blog-collection-container">
-			  <!-- APPEND BLOGS HERE -->
-			</div>
-			@if(auth()->user()->blogs()->count() > 5)
-			</li>
-			  <button class="load-more-btn btn btn-flat waves-effect waves-light grey darken-4 white-text" style="width:100%">
-				Load more blogs
-			  </button>
-			</li>
-			@endif
+		  <li class="collection-header">
+            <h4>Notifications</h4>
+          </li>
+          <div class="notifications-container">
+            <!-- ============ APPEND HERE ============== -->
+          </div>
 		</ul>
 	</div>
 </div>
@@ -109,5 +67,5 @@
 @endsection
 
 @section('scripts')
-  <script src="{{ asset('js/profile.js') }}"></script>
+  <script src="/js/notifications.js"></script>
 @endsection

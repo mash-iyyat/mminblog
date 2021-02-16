@@ -57,4 +57,14 @@ class User extends Authenticatable
     {
       return $this->hasMany(Comment::class, 'user_id');
     }
+
+    public function isMyComment($user_id)
+    {
+      if($this->id == $user_id) {
+        return true;
+      }else {
+        abort(403);
+      }
+    }
+
 }

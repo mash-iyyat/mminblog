@@ -6,7 +6,7 @@ class Blog {
 		if(image != 'no-image.jpg') {
 			this.image = `
 			<li>
-				<img src="storage/images/blog_images/${this.image}" style="width:100%">
+			  <img src="storage/images/blog_images/${this.image}" style="width:100%">
 			</li> 
 			`
 		}else {
@@ -34,34 +34,48 @@ class Blog {
             <i class="fa fa-comment"></i> ${this.commentCount} comments
           </li>
           <li class="collection-item white-text view-blog-item">
-            <a href="blog/read/${this.slug}" class="btn btn-flat blue waves-effect waves-light" target="_blank"> Read Blog</a>
+            <a href="blog/read/${this.slug}" class="btn btn-flat blue waves-effect waves-light"> Read Blog</a>
           </li>
         </ul> 
 		`
 	}
 }
-let paginationNumber = 1;
+
+class PinnedBlog {
+	constructor(id, title, userName, slug) {
+		this.id = id;
+		this.title = title.substring(0, 45) + "...";;
+		this.username = userName;
+		this.slug = slug;
+	}
+
+	pinnedBlogCollection() {
+		return	`
+			<a href="/blog/read/${this.slug}" class="collection-item black-text">
+				<i class="fa fa-chevron-right"></i> ${this.title}
+			</a>
+		`;
+	}
+}
+
 $(document).ready(function() {
-	getBlogs(paginationNumber);
+	swal("Loading....", {
+		button: false,
+	});
+	getBlogs();
+	getPinnedBlogs()
 })
 
-function getBlogs(pageNumber) {
-	swal("Getting blogs...",{
-		buttons:false,
-		closeOnClickOutside:false,
-		closeOnEscape:false,
-		icon:"info"
-	});
+let blogsUrl = `${url}/blog/json?page=1`;
+function getBlogs() {
 	$.ajax({
 		type:'GET',
-		url:`${url}/blog/json?page=${pageNumber}`
+		url:blogsUrl
 	}).done(res => {
-		if(res.blogs.data.length == 0) {
-			Materialize.toast("All blogs are loaded", 3000, 'blue lighten-1')
-			$('#view-more-btn').remove()
+		blogsUrl = res.blogs.next_page_url
+		if(res.blogs.next_page_url == null) {
+			$('#view-more-btn').remove();
 		}
-		paginationNumber = paginationNumber + 1;
-		console.log(paginationNumber)
 		swal.close()
 		for(var x in res.blogs.data) {
 			let blog1 = new Blog(
@@ -77,16 +91,41 @@ function getBlogs(pageNumber) {
 			$('.blog-container').append(blog1.blogCard());
 		}
 	}).fail(err => {
-		swal("Something is wrong",{
-			buttons:false,
-			closeOnClickOutside:false,
-			closeOnEscape:false,
-			icon:"warning"
-		});
+		Materialize.toast("Something is wrong",3000,'red lighten-1');
 		console.log(err)
 	})
 }
 
 $('#view-more-btn').on('click', function() {
-	getBlogs(paginationNumber)
+	getBlogs()
 })
+
+let pinnedBlogUrl = `${url}/blog/json/pinned-blogs?page=1`;
+function getPinnedBlogs(){
+	$.ajax({
+		type:'get',
+		url:pinnedBlogUrl
+	}).done((res) => {
+		console.log(res);
+		pinnedBlogUrl = res.pinned_blogs.next_page_url;
+		if(res.pinned_blogs.next_page_url == null) {
+			$('#view-more-pinned-blog').remove();
+		}
+		for(var x in res.pinned_blogs.data) {
+			let pinnedBlog1 = new PinnedBlog(
+				res.pinned_blogs.data[x].id,
+				res.pinned_blogs.data[x].title,
+				res.pinned_blogs.data[x].user.username,
+				res.pinned_blogs.data[x].slug,
+			)
+			$('#pinned-blog-container').append(pinnedBlog1.pinnedBlogCollection());
+		}
+	}).fail((err) => {
+		Materialize.toast("Something is wrong",3000,'red lighten-1');
+		console.log(err);
+	});
+}
+
+$('#view-more-pinned-blog').on('click', function() {
+	getPinnedBlogs();
+});
